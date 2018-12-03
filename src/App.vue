@@ -91,7 +91,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .note-app-container{
     display: flex;
     position: absolute;
@@ -100,9 +100,8 @@ export default {
     .note-left-menu{
       width: 80px;
       height: 100%;
-      border-right: 1px solid #ccc;
+      border-right: 1px solid $color-border;
       text-align: center;
-  
       .logo{
         .iconfont{
           font-size: 40px;
@@ -113,14 +112,12 @@ export default {
         font-size: 0;
         margin-top: 32px;
         .menu-btn{
-          border: 1px solid #ccc;
-  
+          border: 1px solid $color-border;
           .iconfont{
             font-weight: bold;
           }
         }
       }
-  
       .menu-btn{
         display: inline-block;
         width: 40px;
@@ -130,44 +127,33 @@ export default {
         text-align: center;
         line-height: 40px;
         cursor: pointer;
-  
         .iconfont{
           color: $color-primary;
-          
         }
-  
         &.active{
           background: $color-primary;
           border-color: $color-primary;
-  
           .iconfont{
             color: #fff;
           }
         }
-  
         &:hover{
           background: $color-primary;
           border-color: $color-primary;
-  
           .iconfont{
             color: #fff;
           }
         }
       }
-  
       .menu-middle{
         margin-top: 32px;
-  
         .iconfont{
           font-size: 20px;
         }
       }
     }
-  
     .note-right-content{
       flex: 1;
     }
-  
   }
 </style>
-
