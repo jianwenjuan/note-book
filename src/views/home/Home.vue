@@ -34,12 +34,14 @@
       </div>
     </div>
     <div class="note-detail-area">
-      kkk
+      <editorComponent></editorComponent>
     </div>
   </div>
 </template>
 
 <script>
+import editorComponent from '@/component/editor/noteEditor.vue'
+
 export default {
   name: 'Home',
   data () {
@@ -127,7 +129,8 @@ export default {
       })
       item.selected = true
     }
-  }
+  },
+  components: { editorComponent }
 }
 </script>
 
