@@ -10,7 +10,7 @@
       <!-- 新建 搜索 分享 -->
       <div class="menu-top">
         <div class="menu-btn" v-for="(item) in btnList"
-        :class="[item.id === activedMenu ?'active':'']"
+        :class="[$store.state[item.click] ?'active':'']"
         :title="item.title"
         :key="item.id"
         @click="menuClick(item)">
@@ -21,7 +21,7 @@
       <!-- 搜藏 笔记 笔记本 标签 -->
       <div class="menu-middle">
         <div class="menu-btn" v-for="(item) in menuList"
-        :class="[item.id === activedMenu ?'active':'']"
+        :class="[$store.state[item.click] ?'active':'']"
         :title="item.title"
         :key="item.id"
         @click="menuClick(item)">
@@ -45,39 +45,46 @@ export default {
         {
           id: 'add',
           title: '添加笔记',
-          icon: 'icon-tianjia'
+          icon: 'icon-tianjia',
+          click: 'addShow'
         },
         {
           id: 'search',
           title: '搜索',
-          icon: 'icon-sousuo'
+          icon: 'icon-sousuo',
+          click: 'searchShow'
         },
         {
           id: 'share',
           title: '分享',
-          icon: 'icon-fenxiang'
+          icon: 'icon-fenxiang',
+          click: 'shareShow'
         }
       ],
       menuList: [
         {
           id: 'store',
           title: '收藏',
-          icon: 'icon-store'
+          icon: 'icon-store',
+          click: 'collectionShow'
         },
         {
           id: 'note',
           title: '笔记',
-          icon: 'icon-biji'
+          icon: 'icon-biji',
+          click: 'noteShow'
         },
         {
           id: 'book',
           title: '笔记本',
-          icon: 'icon-book'
+          icon: 'icon-book',
+          click: 'bookShow'
         },
         {
           id: 'lable',
           title: '标签',
-          icon: 'icon-biaoqian'
+          icon: 'icon-biaoqian',
+          click: 'lableShow'
         }
       ],
       activedMenu: 'note'
@@ -86,74 +93,26 @@ export default {
   methods: {
     menuClick (item) {
       this.activedMenu = item.id
+      if(item.id === 'store') {
+        this.$store.commit('collect')
+      } else if (item.id === 'book') {
+        this.$store.commit('book')
+      } else if (item.id === 'lable') {
+        this.$store.commit('lable')
+      } else if (item.id === 'note') {
+        this.$store.commit('hideInfo')
+      } else if (item.id === 'add') {
+        this.$store.commit('add')
+      } else if (item.id === 'search') {
+        this.$store.commit('search')
+      } else if (item.id === 'share') {
+        this.$store.commit('share')
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .note-app-container{
-    display: flex;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    .note-left-menu{
-      width: 80px;
-      height: 100%;
-      border-right: 1px solid $color-border;
-      text-align: center;
-      .logo{
-        .iconfont{
-          font-size: 40px;
-          color: $color-primary;
-        }
-      }
-      .menu-top{
-        font-size: 0;
-        margin-top: 32px;
-        .menu-btn{
-          border: 1px solid $color-border;
-          .iconfont{
-            font-weight: bold;
-          }
-        }
-      }
-      .menu-btn{
-        display: inline-block;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        margin-top: 16px;
-        text-align: center;
-        line-height: 40px;
-        cursor: pointer;
-        .iconfont{
-          color: $color-primary;
-        }
-        &.active{
-          background: $color-primary;
-          border-color: $color-primary;
-          .iconfont{
-            color: #fff;
-          }
-        }
-        &:hover{
-          background: $color-primary;
-          border-color: $color-primary;
-          .iconfont{
-            color: #fff;
-          }
-        }
-      }
-      .menu-middle{
-        margin-top: 32px;
-        .iconfont{
-          font-size: 20px;
-        }
-      }
-    }
-    .note-right-content{
-      flex: 1;
-    }
-  }
+  @import 'assets/css/main.scss';
 </style>

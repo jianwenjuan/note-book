@@ -36,11 +36,35 @@
     <div class="note-detail-area">
       <editorComponent></editorComponent>
     </div>
+    <!-- 收藏 笔记本 标签面板区 -->
+    <transition name="fade">
+      <div class="info-panel" v-show="$store.state.bookShow || $store.state.collectionShow || $store.state.lableShow" @click.self="hideInfo()">
+        <transition name="slide-fade">
+          <div class="info" v-show="$store.state.bookShow">
+            <book></book>
+          </div>
+        </transition>
+        <transition name="slide-fade">
+          <div class="info" v-show="$store.state.collectionShow">
+            <collection></collection>
+          </div>
+        </transition>
+         <transition name="slide-fade">
+          <div class="info" v-show="$store.state.lableShow">
+            <lableContent></lableContent>
+          </div>
+        </transition>
+      </div>
+    </transition>
   </div>
+   
 </template>
 
 <script>
-import editorComponent from '@/component/editor/noteEditor.vue'
+import editorComponent from './component/editor/noteEditor.vue'
+import collection from './component/collection/collection.vue'
+import book from './component/book/book.vue'
+import lableContent from './component/lable/lable.vue'
 
 export default {
   name: 'Home',
@@ -128,134 +152,30 @@ export default {
         obj.selected = false
       })
       item.selected = true
+    },
+    hideInfo () {
+      this.$store.commit('hideInfo');
     }
   },
-  components: { editorComponent }
+  components: { editorComponent, collection, book, lableContent }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-.note-home{
-  position: absolute;
-  height: 100%;
-  display: flex;
-
-  .note-list-area{
-    width: 350px;
-    height: 100%;
-    border-right: 1px solid $color-border;
-
-    .note-module-title{
-      padding: 32px 32px 8px 32px;
-      border-bottom: 1px solid $color-border;
-
-      h4{
-        font-size: 24px;
-        color: #666;
-        font-weight: 100;
-        letter-spacing: 2px;
-      }
-
-      .note-info{
-        margin-top: 32px;
-        display: flex;
-
-        .note-total{
-          flex: 1;
-          color: #666;
-        }
-
-        .note-chose{
-          width: 100px;
-          text-align: right;
-          color: #333;
-          cursor: pointer;
-
-          .iconfont{
-            font-size: 10px;
-            margin-left: 4px;
-          }
-        }
-
-      }
-    }
-
-    .note-list-wrap{
-      height: calc(100% - 130px);
-      overflow-y: scroll;
-
-      .note-item{
-        height: 120px;
-        box-sizing: border-box;
-        padding: 8px 32px;
-        position: relative;
-        cursor: pointer;
-        &.active{
-          &::after{
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            border: 3px solid #ddd;
-            z-index: -1;
-          }
-        }
-
-        .handle-area{
-          position: absolute;
-          top: 8px;
-          right: 16px;
-
-          >div{
-            display: inline-block;
-            margin-left: 8px;
-
-            .iconfont{
-              font-size: 20px;
-              color: #fff;
-            }
-
-          }
-        }
-
-        .note-title{
-          font-size: 18px;
-        }
-        .note-create-time{
-          font-size: 12px;
-          margin-top: 4px;
-        }
-        .note-primary{
-          margin-top: 8px;
-        }
-
-        &:hover{
-          background: $color-primary;
-          border-color: $color-primary;
-
-          .note-title{
-            color: #fff;
-          }
-          .note-create-time{
-            color: #fff;
-          }
-          .note-primary{
-            color: #fff;
-          }
-          &::after{
-            border: none;
-          }
-        }
-      }
-    }
-  }
-
-  .note-detail-area{
-    flex: 1;
-    padding:16px 32px;
-  }
+@import '@/assets/css/home.scss';
+.slide-fade-enter-active {
+  transition: all .8s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s ease;
+}
+.slide-fade-enter {
+  transform: translateX(-400px);
+  opacity: 0;
+}
+.slide-fade-leave-to {
+  transform: translateX(-400px);
+  opacity: 0;
 }
 </style>

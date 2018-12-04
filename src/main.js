@@ -9,12 +9,15 @@ import 'iview/dist/styles/iview.css'
 
 Vue.use(iView)
 
+import store from '@/store/index'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

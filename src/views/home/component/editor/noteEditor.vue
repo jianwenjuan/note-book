@@ -17,7 +17,11 @@
         <div class="editor-area">
             <div class="editor-head">
                 <div><span class="iconfont icon-book"></span><span class="text">项目</span><span class="iconfont icon-jiantouxia"></span></div>
-                <div></div>
+                <div><span class="iconfont icon-biaoqian"></span><span class="text">新建标签</span></div>
+            </div>
+
+            <!-- 内容区域 -->
+            <div class="editor-content">
             </div>
 
         </div>
@@ -36,35 +40,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.handler-area{
-  >div{
-    display: inline-block;
-    margin-right: 8px;
-    cursor: pointer;
-
-    .iconfont{
-        font-size: 20px;
-        font-weight: 600;
-        color: #999;
-
-    }
-  }
-}
-.editor-area{
-    padding:16px 16px 16px 0;
-    margin-left: 16px;
-    color: #999;
-    border-bottom: 1px solid $color-border;
-    cursor: pointer;
-
-    .text{
-        margin:0 8px;
-    }
-
-    .iconfont{
-        font-size: 10px;
-        color: #999;
-    }
-}
+@import '@/assets/css/editor.scss';
 
 </style>
