@@ -32,11 +32,35 @@
     <!-- 右侧内容区域 -->
     <div class="note-right-content">
       <router-view/>
+
+         <!-- 收藏 笔记本 标签面板区 -->
+      <transition name="fade">
+        <div class="info-panel" v-show="$store.state.bookShow || $store.state.collectionShow || $store.state.lableShow" @click.self="hideInfo()">
+          <transition name="slide-fade">
+            <div class="info" v-show="$store.state.bookShow">
+              <book></book>
+            </div>
+          </transition>
+          <transition name="slide-fade">
+            <div class="info" v-show="$store.state.collectionShow">
+              <collection></collection>
+            </div>
+          </transition>
+          <transition name="slide-fade">
+            <div class="info" v-show="$store.state.lableShow">
+              <lableContent></lableContent>
+            </div>
+          </transition>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
+import collection from '@/component/collection/collection.vue'
+import book from '@/component/book/book.vue'
+import lableContent from '@/component/lable/lable.vue'
 export default {
   name: 'App',
   data () {
@@ -108,11 +132,29 @@ export default {
       } else if (item.id === 'share') {
         this.$store.commit('share')
       }
+    },
+    hideInfo () {
+      this.$store.commit('hideInfo');
     }
-  }
+  },
+  components: { collection, book, lableContent }
 }
 </script>
 
 <style lang="scss" scoped>
   @import 'assets/css/main.scss';
+  .slide-fade-enter-active {
+    transition: all .8s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s ease;
+  }
+  .slide-fade-enter {
+    transform: translateX(-400px);
+    opacity: 0;
+  }
+  .slide-fade-leave-to {
+    transform: translateX(-400px);
+    opacity: 0;
+  }
 </style>
