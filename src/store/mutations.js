@@ -40,6 +40,9 @@ export default {
         state.addShow = false;
         state.searchShow = false;
         state.shareShow = false;
+        if(state.collectionShow === false) {
+            state.noteShow = true;
+        }
 
     },
 
@@ -51,6 +54,9 @@ export default {
         state.addShow = false;
         state.searchShow = false;
         state.shareShow = false;
+        if(state.bookShow === false) {
+            state.noteShow = true;
+        }
     },
 
     lable(state) {
@@ -61,6 +67,9 @@ export default {
         state.addShow = false;
         state.searchShow = false;
         state.shareShow = false;
+        if(state.lableShow === false) {
+            state.noteShow = true;
+        }
 
     },
 

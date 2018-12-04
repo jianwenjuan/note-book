@@ -1,0 +1,31 @@
+.lable-title-area{
+    padding: 16px 32px;
+    border-bottom: 1px solid $color-border;
+    position: relative;
+
+    h4{
+        font-size: $title-size;
+        font-weight: 100;
+        color: $title-color;
+
+    }
+
+    .lable-search{
+        margin-top: 32px;
+    }
+
+    .add{
+        position: absolute;
+        top: 16px;
+        right: 32px;
+        cursor: pointer;
+
+        .iconfont{
+            color: $color-primary;
+            font-size: 20px;
+        }
+
+    }
+
+   
+}

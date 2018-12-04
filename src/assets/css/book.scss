@@ -1,3 +1,99 @@
 .book-title-area{
     padding: 16px 32px;
+    border-bottom: 1px solid $color-border;
+    position: relative;
+
+    h4{
+        font-size: $title-size;
+        font-weight: 100;
+        color: $title-color;
+
+    }
+
+    .book-search{
+        margin-top: 32px;
+    }
+    .add{
+        position: absolute;
+        top: 16px;
+        right: 32px;
+        cursor: pointer;
+
+        .iconfont{
+            color: $color-primary;
+            font-size: 22px;
+        }
+
+    }
+
+   
+}
+.book-list{
+    .book-item{
+        padding: 16px 16px 0 16px;
+        cursor: pointer;
+        transition: all .2s;
+      
+        .book-wrap{
+            padding: 16px;
+            display: flex;
+            border-bottom: 1px solid $color-border;
+
+            .handle{
+                width: 100px;
+                text-align: right;
+    
+                >div{
+                    display: inline-block;
+
+                    .iconfont{
+                        font-size: 20px;
+                        color: #fff;
+                        margin-left: 13px;
+                    }
+                }
+            }
+            .book-info{
+                flex: 1;
+
+                .book-title{
+                    font-size: 18px;
+                    margin-bottom: 8px;
+                }
+
+                .book-num{
+                    color: #999;
+
+                    span{
+                        margin-right: 4px;
+                    }
+                }
+            }
+        }
+
+        &:hover{
+            background: $color-primary;
+
+            .book-wrap{
+                border-color: $color-primary;
+            }
+
+            .book-info{
+                >div{
+                    color: #fff;
+
+                    >span{
+                        color: #fff;
+                    }
+
+                    &.book-num{
+                        color: #fff;
+                    }
+                }   
+            }
+        }
+
+       
+
+    }
 }

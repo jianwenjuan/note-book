@@ -88,7 +88,7 @@ export default {
       menuList: [
         {
           id: 'store',
-          title: '收藏',
+          title: '快捷方式',
           icon: 'icon-store',
           click: 'collectionShow'
         },
@@ -150,11 +150,11 @@ export default {
     transition: all .8s ease;
   }
   .slide-fade-enter {
-    transform: translateX(-400px);
+    transform: translateX(-500px);
     opacity: 0;
   }
   .slide-fade-leave-to {
-    transform: translateX(-400px);
+    transform: translateX(-500px);
     opacity: 0;
   }
 </style>
