@@ -9,6 +9,8 @@ export default {
         state.searchShow = false;
         state.shareShow = false;
 
+        state.isShowLeftMenu = false;
+
     },
     search(state) {
         state.collectionShow = false;
@@ -81,6 +83,21 @@ export default {
         state.addShow = false;
         state.searchShow = false;
         state.shareShow = false;
+    },
+
+    navToCreate(state) {
+        if(state.isShowLeftMenu) {
+            state.isShowLeftMenu = false;
+        }
+    },
+
+    navToHome(state) {
+        if(!state.isShowLeftMenu) {
+            state.isShowLeftMenu = true;
+        }
+        state.addShow = false;
+        state.noteShow = true;
+
     }
 
 }

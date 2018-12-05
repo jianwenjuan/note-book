@@ -1,18 +1,5 @@
 <template>
     <div class="editor-wrap">
-        <!-- 操作区域 -->
-        <div class="handler-area">
-            <div>
-                <span class="iconfont icon-alarmclock"></span>
-            </div>
-            <div>
-                <span class="iconfont icon-xingxing"></span>
-            </div>
-            <div>
-                <span class="iconfont icon-shanchu"></span>
-            </div>
-        </div>
-
         <!-- 编辑区域 -->
         <div class="editor-area">
             <div class="editor-head">
