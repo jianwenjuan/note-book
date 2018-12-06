@@ -79,14 +79,18 @@
           </div>
         </div>
 
-        <editorComponent></editorComponent>
+        <editorComponent :noteDetail="selectedNote"></editorComponent>
       </div>
     </div>
+
+    <setAlarm></setAlarm>
   </div>
 </template>
 
 <script>
 import editorComponent from "@/component/editor/noteEditor.vue";
+
+import setAlarm from "@/component/func/setAlarm.vue";
 export default {
   name: "Home",
   data() {
@@ -98,64 +102,65 @@ export default {
           isStore: true,
           title: "123",
           createTime: "20 分钟前",
-          primary: "1245555",
+          primary: "hgh",
           selected: true
         },
         {
           id: "2",
           isAlarm: false,
           isStore: false,
-          title: "123",
+          title: "453",
           createTime: "20 分钟前",
-          primary: "1245555",
+          primary: "124555ggfg5",
           selected: false
         },
         {
           id: "3",
           isAlarm: false,
           isStore: false,
-          title: "123",
+          title: "893",
           createTime: "20 分钟前",
-          primary: "1245555",
+          primary: "mmmm",
           selected: false
         },
         {
           id: "4",
           isAlarm: false,
           isStore: false,
-          title: "123",
+          title: "185",
           createTime: "20 分钟前",
-          primary: "1245555",
+          primary: "trtt",
           selected: false
         },
         {
           id: "5",
           isAlarm: false,
           isStore: false,
-          title: "123",
+          title: "1553",
           createTime: "20 分钟前",
-          primary: "1245555",
+          primary: "mkkkk",
           selected: false
         },
         {
           id: "6",
           isAlarm: false,
           isStore: false,
-          title: "123",
+          title: "222",
           createTime: "20 分钟前",
-          primary: "1245555",
+          primary: "eteyu",
           selected: false
         },
         {
           id: "7",
           isAlarm: false,
           isStore: false,
-          title: "123",
+          title: "sss",
           createTime: "20 分钟前",
-          primary: "1245555",
+          primary: "mmkkk",
           selected: false
         }
-      ]
+      ],
+      selectedNote: {}
     };
   },
   methods: {
@@ -174,9 +179,13 @@ export default {
         obj.selected = false;
       });
       item.selected = true;
+
+      this.selectedNote = item;
+
+
     }
   },
-  components: { editorComponent }
+  components: { editorComponent,setAlarm }
 };
 </script>
 
