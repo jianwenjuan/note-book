@@ -63,7 +63,7 @@
         <!-- 操作区域 -->
         <div class="handler-area">
           <div title="设置提醒">
-            <span class="iconfont icon-alarmclock"></span>
+            <span class="iconfont icon-alarmclock" @click="setNoteAlarm"></span>
           </div>
           <div title="添加快捷方式">
             <span class="iconfont icon-xingxing"></span>
@@ -83,7 +83,8 @@
       </div>
     </div>
 
-    <setAlarm :x="clientX" :y="clientY"></setAlarm>
+    <setAlarm  :x="clientX" :y="clientY" :isShowSetAlarm="isSetAlarm"></setAlarm>
+
   </div>
 </template>
 
@@ -161,17 +162,23 @@ export default {
         }
       ],
       selectedNote: {},
-      postion: {
-
-      }
+      postion: {},
+      isSetAlarm: false,
+      clientX:0,
+      clientY:0
     };
   },
   methods: {
-    setAlarm(item,$event) {
-      console.log($event);
+    setAlarm(item, $event) {
+      this.isSetAlarm = true;
       this.clientX = $event.x;
       this.clientY = $event.y;
       item.isAlarm = !item.isAlarm;
+    },
+    setNoteAlarm($event) {
+      this.isSetAlarm = true;
+      this.clientX = $event.x;
+      this.clientY = $event.y;
     },
     storeNote(item) {
       item.isStore = !item.isStore;
@@ -186,11 +193,11 @@ export default {
       item.selected = true;
 
       this.selectedNote = item;
-
-
     }
   },
-  components: { editorComponent,setAlarm }
+ 
+
+  components: { editorComponent, setAlarm }
 };
 </script>
 
