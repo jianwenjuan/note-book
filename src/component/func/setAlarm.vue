@@ -6,7 +6,7 @@
     :style="{top:y+ 24+'px',left:x - 120 +'px'}"
   >
     <div class="arrow"></div>
-    <div class="set-btn">标记完成</div>
+    <div class="set-btn" @click="markCompalete()">标记完成</div>
     <div class="set-btn">清除提醒</div>
     <div class="set-btn">修改日期</div>
   </div>
@@ -15,30 +15,19 @@
 <script>
 export default {
   name: "setAlarm",
-  data() {},
+  data() {
+    return {};
+  },
+  methods: {
+    markCompalete() {
+      console.log(this.noteDetail);
+    }
+  },
   props: {
     x: Number,
     y: Number,
-    isShowSetAlarm: false
-  },
-  created() {
-    const self = this;
-    const alrmWrap = document.getElementById("alrmWrap");
-    let body = document.querySelector("body");
-    body.addEventListener(
-      "click",
-      e => {
-        if (
-          e.target.className.indexOf("icon-alarmclock") > -1 ||
-          (alrmWrap && alrmWrap.contains(event.target))
-        ) {
-          self.isShowSetAlarm = true;
-        } else {
-          self.isShowSetAlarm = false;
-        }
-      },
-      false
-    );
+    isShowSetAlarm: false,
+    noteDetail: Object
   },
   computed: {}
 };

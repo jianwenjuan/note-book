@@ -83,8 +83,12 @@
       </div>
     </div>
 
-    <setAlarm  :x="clientX" :y="clientY" :isShowSetAlarm="isSetAlarm"></setAlarm>
-
+    <setAlarm
+      :x="clientX"
+      :y="clientY"
+      :isShowSetAlarm="isSetAlarm"
+      :noteDetail="isItemSet?needToSetAlarm:selectedNote"
+    ></setAlarm>
   </div>
 </template>
 
@@ -164,8 +168,10 @@ export default {
       selectedNote: {},
       postion: {},
       isSetAlarm: false,
-      clientX:0,
-      clientY:0
+      clientX: 0,
+      clientY: 0,
+      needToSetAlarm: {},
+      isItemSet: false
     };
   },
   methods: {
@@ -174,6 +180,8 @@ export default {
       this.clientX = $event.x;
       this.clientY = $event.y;
       item.isAlarm = !item.isAlarm;
+      this.isItemSet = true;
+      this.needToSetAlarm = item;
     },
     setNoteAlarm($event) {
       this.isSetAlarm = true;
@@ -191,11 +199,38 @@ export default {
         obj.selected = false;
       });
       item.selected = true;
+      this.isItemSet = false;
 
       this.selectedNote = item;
     }
   },
- 
+  created() {
+    // 默认展示第一条数据
+    this.selectedNote = this.noteList.filter((item)=>{
+      return item.selected === true;
+    })[0];
+
+
+
+
+    const self = this;
+    const alrmWrap = document.getElementById("alrmWrap");
+    let body = document.querySelector("body");
+    body.addEventListener(
+      "click",
+      e => {
+        if (
+          e.target.className.indexOf("icon-alarmclock") > -1 ||
+          (alrmWrap && alrmWrap.contains(event.target))
+        ) {
+          self.isSetAlarm = true;
+        } else {
+          self.isSetAlarm = false;
+        }
+      },
+      false
+    );
+  },
 
   components: { editorComponent, setAlarm }
 };
