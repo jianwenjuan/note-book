@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <setAlarm></setAlarm>
+    <setAlarm :x="clientX" :y="clientY"></setAlarm>
   </div>
 </template>
 
@@ -160,12 +160,17 @@ export default {
           selected: false
         }
       ],
-      selectedNote: {}
+      selectedNote: {},
+      postion: {
+
+      }
     };
   },
   methods: {
     setAlarm(item,$event) {
       console.log($event);
+      this.clientX = $event.x;
+      this.clientY = $event.y;
       item.isAlarm = !item.isAlarm;
     },
     storeNote(item) {

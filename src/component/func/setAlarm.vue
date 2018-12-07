@@ -1,5 +1,5 @@
 <template>
-    <div class="alarm-wrap">
+    <div class="alarm-wrap" :style="{top:y+ 24+'px',left:x - 120 +'px'}">
         <div class="arrow"></div>
         <div class="set-btn">标记完成</div>
         <div class="set-btn">清除提醒</div>
@@ -14,7 +14,11 @@ export default {
 
     },
     props: {
+        x:Number,
+        y:Number
 
+    },
+    computed:{
     }
 }
 </script>
@@ -49,7 +53,7 @@ export default {
 
     .arrow{
         position: absolute;
-        top: -8px;
+        top: -16px;
         left: 50%;
         margin-left: -4px;
         width: 0;
@@ -57,6 +61,7 @@ export default {
         border-width: 8px;
         border-style: solid;
         border-color: transparent transparent #fff transparent;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04), -6px 8px 15px rgba(0, 0, 0, 0.04), 6px 8px 15px rgba(0, 0, 0, 0.04);
 
     }
 
