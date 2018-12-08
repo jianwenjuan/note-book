@@ -4,7 +4,6 @@
     <transition name="slide-fade">
       <div class="note-search-area" v-if="$store.state.searchShow">
         <input type="text" placeholder="搜索笔记">
-
         <div class="slect-book-area">
           <span class="info">正在搜索</span>
           <div class="select-btn">
@@ -31,6 +30,36 @@
               <span class="iconfont icon-jiantouxia"></span>
             </div>
           </div>
+        </div>
+
+        <div class="alarm-note-list-wrap">
+          <div class="toggle-btn" @click="toggleAlarmList()">
+            <div class="left">
+              <span class="iconfont" :class="[isShowAlarmList?'icon-jiantouxia':'icon-jiantouyou']"></span>
+              <span class="text">提醒</span>
+            </div>
+            <div class="right">
+              <span class="num">5</span>
+              <span class="iconfont icon-naozhong"></span>
+            </div>
+          </div>
+
+          <ul class="alarm-note-list" v-show="isShowAlarmList">
+            <li>
+              <div>
+                <span></span>
+                <span>123</span>
+              </div>
+              <div>
+                <span></span>
+                <span>123</span>
+              </div>
+              <div>
+                <span></span>
+                <span>123</span>
+              </div>
+            </li>
+          </ul>
         </div>
 
         <!-- 列表区域 -->
@@ -171,7 +200,8 @@ export default {
       clientX: 0,
       clientY: 0,
       needToSetAlarm: {},
-      isItemSet: false
+      isItemSet: false,
+      isShowAlarmList: false
     };
   },
   methods: {
@@ -202,17 +232,16 @@ export default {
       this.isItemSet = false;
 
       this.selectedNote = item;
+    },
+    toggleAlarmList() {
+      this.isShowAlarmList = !this.isShowAlarmList;
     }
   },
   created() {
     // 默认展示第一条数据
-    this.selectedNote = this.noteList.filter((item)=>{
+    this.selectedNote = this.noteList.filter(item => {
       return item.selected === true;
     })[0];
-
-
-
-
     const self = this;
     const alrmWrap = document.getElementById("alrmWrap");
     let body = document.querySelector("body");
