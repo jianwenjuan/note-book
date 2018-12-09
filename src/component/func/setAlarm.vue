@@ -6,9 +6,15 @@
     :style="{top:y+ 24+'px',left:x - 120 +'px'}"
   >
     <div class="arrow"></div>
-    <div class="set-btn" @click="markCompalete()">标记完成</div>
-    <div class="set-btn">清除提醒</div>
-    <div class="set-btn">修改日期</div>
+    <div v-if="!showInfo">
+      <div class="set-btn" @click="markCompalete()">标记完成</div>
+      <div class="set-btn" @click="removeAlarm()">清除提醒</div>
+      <div class="set-btn">修改日期</div>
+    </div>
+    <div v-if="showInfo">
+      <div class=""><span></span>提醒已添加</div>
+      <div class="set-btn">通知我</div>
+    </div>
   </div>
 </template>
 
@@ -21,13 +27,17 @@ export default {
   methods: {
     markCompalete() {
       console.log(this.noteDetail);
+    },
+    removeAlarm() {
+      this.$store.commit('removeAlarmData',this.noteDetail);
     }
   },
   props: {
     x: Number,
     y: Number,
     isShowSetAlarm: false,
-    noteDetail: Object
+    noteDetail: Object,
+    showInfo: true
   },
   computed: {}
 };

@@ -105,11 +105,12 @@
   
         }
       }
-  
-      .note-list-wrap{
+      .node-list-container{
         height: calc(100% - 130px);
         overflow-y: scroll;
-  
+      }
+      .note-list-wrap{
+       
         .note-item{
           height: 120px;
           box-sizing: border-box;
@@ -199,6 +200,10 @@
               &:hover{
                 color: $color-primary;
               }
+
+              &.icon-select{
+                color: $color-primary;
+              }
       
           }
         }
@@ -206,6 +211,8 @@
     }
 
     .alarm-note-list-wrap{
+
+      border-bottom: 2px solid $color-border;
 
       .toggle-btn{
         height: 40px;

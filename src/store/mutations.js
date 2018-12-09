@@ -1,10 +1,11 @@
 export default {
 
+    //点击新建按钮
     add(state) {
         state.collectionShow = false;
         state.bookShow = false;
         state.lableShow = false;
-        state.noteShow = false; 
+        state.noteShow = false;
         state.addShow = true;
         state.searchShow = false;
         state.shareShow = false;
@@ -12,21 +13,25 @@ export default {
         state.isShowLeftMenu = false;
 
     },
+
+    // 点击搜索
     search(state) {
         state.collectionShow = false;
         state.bookShow = false;
         state.lableShow = false;
-        state.noteShow = false; 
+        state.noteShow = false;
         state.addShow = false;
         state.searchShow = true;
         state.shareShow = false;
 
     },
+
+    // 点击分享
     share(state) {
         state.collectionShow = false;
         state.bookShow = false;
         state.lableShow = false;
-        state.noteShow = false; 
+        state.noteShow = false;
         state.addShow = false;
         state.searchShow = false;
         state.shareShow = true;
@@ -38,15 +43,16 @@ export default {
         state.collectionShow = !state.collectionShow;
         state.bookShow = false;
         state.lableShow = false;
-        state.noteShow = false; 
+        state.noteShow = false;
         state.addShow = false;
         state.searchShow = false;
         state.shareShow = false;
-        if(state.collectionShow === false) {
+        if (state.collectionShow === false) {
             state.noteShow = true;
         }
 
     },
+
 
     book(state) {
         state.collectionShow = false
@@ -56,7 +62,7 @@ export default {
         state.addShow = false;
         state.searchShow = false;
         state.shareShow = false;
-        if(state.bookShow === false) {
+        if (state.bookShow === false) {
             state.noteShow = true;
         }
     },
@@ -69,7 +75,7 @@ export default {
         state.addShow = false;
         state.searchShow = false;
         state.shareShow = false;
-        if(state.lableShow === false) {
+        if (state.lableShow === false) {
             state.noteShow = true;
         }
 
@@ -85,19 +91,48 @@ export default {
         state.shareShow = false;
     },
 
+    // 跳转至新建
     navToCreate(state) {
-        if(state.isShowLeftMenu) {
+        if (state.isShowLeftMenu) {
             state.isShowLeftMenu = false;
         }
     },
 
+    // 跳转至home
     navToHome(state) {
-        if(!state.isShowLeftMenu) {
+        if (!state.isShowLeftMenu) {
             state.isShowLeftMenu = true;
         }
         state.addShow = false;
         state.noteShow = true;
 
+    },
+
+    // 添加设置提醒的数据
+    addAlarmData(state, data) {
+        if (data.isAlarm) {
+            state.alarmList.push(data);
+
+        }
+
+        console.log(state.alarmList);
+
+    },
+
+    // 清楚设置提醒的数据
+    removeAlarmData(state, data) {
+        state.noteList.forEach(item => {
+            if(item.id === data.id) {
+                item.isAlarm = false;
+            }
+            
+        });
+        state.alarmList = state.alarmList.filter((item) => {
+            return item.id !== data.id;
+
+        })
+
+        console.log(state.alarmList);
     }
 
 }

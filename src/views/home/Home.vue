@@ -31,60 +31,55 @@
             </div>
           </div>
         </div>
+        
+        <!-- 设置过提醒列表 -->
+        <div class="node-list-container">
+          <div class="alarm-note-list-wrap" v-if="$store.state.alarmList.length">
+            <div class="toggle-btn" @click="toggleAlarmList()">
+              <div class="left">
+                <span class="iconfont" :class="[isShowAlarmList?'icon-jiantouxia':'icon-jiantouyou']"></span>
+                <span class="text">提醒</span>
+              </div>
+              <div class="right">
+                <span class="num">{{$store.state.alarmList.length}}</span>
+                <span class="iconfont icon-naozhong"></span>
+              </div>
+            </div>
 
-        <div class="alarm-note-list-wrap">
-          <div class="toggle-btn" @click="toggleAlarmList()">
-            <div class="left">
-              <span class="iconfont" :class="[isShowAlarmList?'icon-jiantouxia':'icon-jiantouyou']"></span>
-              <span class="text">提醒</span>
-            </div>
-            <div class="right">
-              <span class="num">5</span>
-              <span class="iconfont icon-naozhong"></span>
-            </div>
+            <ul class="alarm-note-list" v-show="isShowAlarmList">
+              <li>
+                <div v-for="(item,index) in $store.state.alarmList" :key="index">
+                  <span></span>
+                  <span>{{item.title}}</span>
+                </div>
+              </li>
+            </ul>
           </div>
 
-          <ul class="alarm-note-list" v-show="isShowAlarmList">
-            <li>
-              <div>
-                <span></span>
-                <span>123</span>
+          <!-- 列表区域 -->
+          <div class="note-list-wrap">
+            <div
+              class="note-item"
+              v-for="(item) in noteList"
+              :key="item.id"
+              :class="[item.selected ? 'active':'']"
+              @click="selectNote(item)"
+            >
+              <div class="handle-area">
+                <div @click.stop="setAlarm(item,$event)" title="设置提醒">
+                  <span class="iconfont" :class="[item.isAlarm ? 'icon-naozhong': 'icon-alarmclock']"></span>
+                </div>
+                <div @click.stop="storeNote(item)" title="添加快捷方式">
+                  <span class="iconfont" :class="[item.isStore ? 'icon-store': 'icon-xingxing']"></span>
+                </div>
+                <div @click.stop="deleteNote(item)" title="删除">
+                  <span class="iconfont icon-shanchu"></span>
+                </div>
               </div>
-              <div>
-                <span></span>
-                <span>123</span>
-              </div>
-              <div>
-                <span></span>
-                <span>123</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        <!-- 列表区域 -->
-        <div class="note-list-wrap">
-          <div
-            class="note-item"
-            v-for="(item) in noteList"
-            :key="item.id"
-            :class="[item.selected ? 'active':'']"
-            @click="selectNote(item)"
-          >
-            <div class="handle-area">
-              <div @click.stop="setAlarm(item,$event)" title="设置提醒">
-                <span class="iconfont" :class="[item.isAlarm ? 'icon-naozhong': 'icon-alarmclock']"></span>
-              </div>
-              <div @click.stop="storeNote(item)" title="添加快捷方式">
-                <span class="iconfont" :class="[item.isStore ? 'icon-store': 'icon-xingxing']"></span>
-              </div>
-              <div @click.stop="deleteNote(item)" title="删除">
-                <span class="iconfont icon-shanchu"></span>
-              </div>
+              <div class="note-title">{{item.title}}</div>
+              <div class="note-create-time">{{item.createTime}}</div>
+              <div class="note-primary">{{item.primary}}</div>
             </div>
-            <div class="note-title">{{item.title}}</div>
-            <div class="note-create-time">{{item.createTime}}</div>
-            <div class="note-primary">{{item.primary}}</div>
           </div>
         </div>
       </div>
@@ -92,7 +87,11 @@
         <!-- 操作区域 -->
         <div class="handler-area">
           <div title="设置提醒">
-            <span class="iconfont icon-alarmclock" @click="setNoteAlarm"></span>
+            <span
+              class="iconfont icon-alarmclock"
+              :class="[selectedNote.isAlarm ? 'icon-select': '']"
+              @click="setNoteAlarm"
+            ></span>
           </div>
           <div title="添加快捷方式">
             <span class="iconfont icon-xingxing"></span>
@@ -117,6 +116,7 @@
       :y="clientY"
       :isShowSetAlarm="isSetAlarm"
       :noteDetail="isItemSet?needToSetAlarm:selectedNote"
+      :showInfo="isSetShowInfo"
     ></setAlarm>
   </div>
 </template>
@@ -129,94 +129,55 @@ export default {
   name: "Home",
   data() {
     return {
-      noteList: [
-        {
-          id: "1",
-          isAlarm: true,
-          isStore: true,
-          title: "123",
-          createTime: "20 分钟前",
-          primary: "hgh",
-          selected: true
-        },
-        {
-          id: "2",
-          isAlarm: false,
-          isStore: false,
-          title: "453",
-          createTime: "20 分钟前",
-          primary: "124555ggfg5",
-          selected: false
-        },
-        {
-          id: "3",
-          isAlarm: false,
-          isStore: false,
-          title: "893",
-          createTime: "20 分钟前",
-          primary: "mmmm",
-          selected: false
-        },
-        {
-          id: "4",
-          isAlarm: false,
-          isStore: false,
-          title: "185",
-          createTime: "20 分钟前",
-          primary: "trtt",
-          selected: false
-        },
-        {
-          id: "5",
-          isAlarm: false,
-          isStore: false,
-          title: "1553",
-          createTime: "20 分钟前",
-          primary: "mkkkk",
-          selected: false
-        },
-        {
-          id: "6",
-          isAlarm: false,
-          isStore: false,
-          title: "222",
-          createTime: "20 分钟前",
-          primary: "eteyu",
-          selected: false
-        },
-        {
-          id: "7",
-          isAlarm: false,
-          isStore: false,
-          title: "sss",
-          createTime: "20 分钟前",
-          primary: "mmkkk",
-          selected: false
-        }
-      ],
+      noteList: [],
       selectedNote: {},
       postion: {},
       isSetAlarm: false,
       clientX: 0,
       clientY: 0,
       needToSetAlarm: {},
-      isItemSet: false,
-      isShowAlarmList: false
+      isItemSet: false, //标识点击的是列表设置提醒还是编辑设置提醒
+      isShowAlarmList: false,
+      isSetShowInfo: false //控制提醒面板显示内容
     };
   },
   methods: {
     setAlarm(item, $event) {
+      // 显示清除提示面板
       this.isSetAlarm = true;
       this.clientX = $event.x;
       this.clientY = $event.y;
-      item.isAlarm = !item.isAlarm;
-      this.isItemSet = true;
       this.needToSetAlarm = item;
+
+      //标识点击的是列表设置提醒还是编辑设置提醒
+      this.isItemSet = true;
+
+      if (!item.isAlarm) {
+        item.isAlarm = true;
+        // 控制面板显示内容
+        this.isSetShowInfo = true;
+        this.$store.commit("addAlarmData", item);
+      } else {
+        this.isSetShowInfo = false;
+      }
     },
     setNoteAlarm($event) {
+      this.isSetAlarm = false;
       this.isSetAlarm = true;
       this.clientX = $event.x;
       this.clientY = $event.y;
+      //标识点击的是列表设置提醒还是编辑设置提醒
+      this.isItemSet = false;
+
+      if (!this.selectedNote.isAlarm) {
+        // 控制面板显示内容
+        this.isSetShowInfo = true;
+        this.selectedNote.isAlarm = true;
+
+        this.$store.commit("addAlarmData", this.selectedNote);
+      } else {
+        this.isSetShowInfo = false;
+      }
     },
     storeNote(item) {
       item.isStore = !item.isStore;
@@ -238,10 +199,11 @@ export default {
     }
   },
   created() {
-    // 默认展示第一条数据
-    this.selectedNote = this.noteList.filter(item => {
-      return item.selected === true;
-    })[0];
+    (this.noteList = this.$store.state.noteList),
+      // 默认展示第一条数据
+      (this.selectedNote = this.noteList.filter(item => {
+        return item.selected === true;
+      })[0]);
     const self = this;
     const alrmWrap = document.getElementById("alrmWrap");
     let body = document.querySelector("body");
