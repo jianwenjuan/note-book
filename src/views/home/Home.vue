@@ -148,6 +148,7 @@ export default {
     };
   },
   methods: {
+    // 在列表设置提醒
     setAlarm(item, $event) {
       // 显示清除提示面板
       this.isSetAlarm = true;
@@ -167,6 +168,8 @@ export default {
         this.isSetShowInfo = false;
       }
     },
+
+    // 在详情里设置提醒
     setNoteAlarm($event) {
       this.isSetAlarm = false;
       this.isSetAlarm = true;
@@ -185,12 +188,22 @@ export default {
         this.isSetShowInfo = false;
       }
     },
+    // 设置快捷方式
     storeNote(item) {
       item.isStore = !item.isStore;
     },
+
+    // 删除笔记
     deleteNote(item) {
-      alert("删除笔记");
+      this.$store.commit("deletNote", item);
+      this.noteList.forEach(item => {
+        if (item.selected) {
+          this.selectedNote = item;
+        }
+      });
     },
+
+    // 选中笔记
     selectNote(item) {
       this.noteList.forEach(obj => {
         obj.selected = false;
@@ -200,6 +213,8 @@ export default {
 
       this.selectedNote = item;
     },
+
+    // 切换设置提醒面板
     toggleAlarmList() {
       this.isShowAlarmList = !this.isShowAlarmList;
     }
@@ -212,6 +227,8 @@ export default {
         this.selectedNote = item;
       }
     });
+
+    // 点击其他地方关闭面板
     const self = this;
     const alrmWrap = document.getElementById("alrmWrap");
     let body = document.querySelector("body");

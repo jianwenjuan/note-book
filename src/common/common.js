@@ -3,7 +3,7 @@
     deepCopy(source,target={}){
 
         for(var key in source) {
-            if(source.hasOwnProperty(key)){
+            if(Object.prototype.hasOwnProperty.call(source,key)){
                 if(typeof(source[key])==='object'){
                     target[key] = Array.isArray(source[key])?[]:{};
                     this.deepCopy(source[key],target[key]);

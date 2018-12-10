@@ -75,9 +75,12 @@ export default {
     }
   },
   methods: {
+    // 显示书本列表面板
     showBookList() {
       this.isShowBookList = !this.isShowBookList;
     },
+
+    // 点击保存
     submit() {
       if (this.isEditor) {
         // 如果是编辑
@@ -87,12 +90,29 @@ export default {
         this.create();
       }
     },
+
+    // 编辑数据
     update() {
       this.$store.commit("editorNote", this.note);
     },
+
+    // 新增数据
     create() {
-      this.$store.commit("creatNote");
+      const newNoteData = {
+        id: `${Math.random()*1000}`,
+        isAlarm: false,
+        isStore: false,
+        title: this.note.title,
+        createTime: "20 分钟前",
+        primary: this.note.primary,
+        selected: false,
+        book: common.deepCopy(this.currentBook,{})
+      };
+      this.$store.commit("creatNote", newNoteData);
+      this.$router.push("/");
     },
+
+    // 切换书本
     choseBook(item) {
       this.currentBook = item;
       this.note.book = this.currentBook;
@@ -113,6 +133,7 @@ export default {
       this.currentBook = this.noteDetail.book;
     }
 
+    //  点击其他地方，关闭弹窗面板
     const self = this;
     this.$nextTick(() => {
       const selectBookBtn = document.getElementById("selectBookBtn");

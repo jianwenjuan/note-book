@@ -150,6 +150,33 @@ export default {
         console.log(state.noteList);
 
          
+    },
+
+    // 新增日记
+    creatNote(state,data){
+        console.log(data);
+        state.noteList.push(data);
+
+    },
+    
+    // 删除日记
+    deletNote(state,data) {
+
+        state.noteList.forEach((item,index)=>{
+            if(item.id === data.id){
+                state.noteList.splice(index,1);
+         
+            }
+
+        });
+
+        if(data.selected){
+            state.noteList[0].selected = true;
+        }
+
+
     }
+
+
 
 }
