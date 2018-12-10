@@ -1,5 +1,6 @@
 
   .editor-wrap{
+      position: relative;
 
       .editor-head{
         padding:16px 16px 16px 0;
@@ -12,16 +13,111 @@
         >div{
             display: inline-block;
             margin-right: 13px;
+
+            .text{
+                margin:0 8px;
+            }
+        
+            .iconfont{
+                font-size: 10px;
+                color: #999;
+            }
+
+          
         }
 
-        .text{
-            margin:0 8px;
-        }
+        .select-book{
+            position: relative;
+
+            .icon-zhuanchu{
+                color: #fff;
+                vertical-align: bottom;
+            }
+
+            .book-display{
+                .icon-zhuanchu{
+                    color: #fff;
+                    font-size: 16px;
+                    font-weight: bold;
+                    margin-left: 5px;
+                }
+                &:hover{
+                    .icon-zhuanchu{
+                        color: $color-primary;
+                    }
+
+                }
     
-        .iconfont{
-            font-size: 10px;
-            color: #999;
+
+            }
+           
+            .book-wrap{
+                position:absolute;
+                top: 32px;
+                left: 0;
+                background: #fff;
+                box-shadow: $box-shadow;
+                width: 300px;
+
+                .search-book{
+                    padding: 16px;
+                    border-bottom: 1px solid $color-border;
+                }
+
+                .create-book{
+                    margin: 0 16px;
+                    padding:8px 16px;
+                    border-bottom: 1px solid $color-border;
+
+                    .iconfont{
+                        color: #666;
+                        font-size: 20px;
+                    }
+
+                    span{
+                        vertical-align: middle;
+                    }
+
+                    &:hover{
+
+                        span{
+                            color: $color-primary;
+                        }
+                    }
+                }
+                
+                .book-list{
+                    >.book-item{
+                        padding: 0 16px;
+        
+                        .book-name {
+                            padding: 0 16px;
+                            height: 40px;
+                            line-height: 40px;
+                        }
+
+                        &:not(:last-child){
+                            .book-name{
+                                border-bottom: 1px solid $color-border;
+                            }
+                        }
+
+                        &:hover{
+                            background: $color-primary;
+                            
+
+                            .book-name {
+                                color: #fff;
+                                border-color: $color-primary;
+                            }
+
+                        }
+                    }
+                }
+            }
         }
+
+     
       }
 
       .editor-content{
@@ -55,6 +151,27 @@
                   resize:none;
                   text-align: left;
               }
+          }
+      }
+
+      .save-btn{
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          padding: 0 16px;
+          border-radius: 4px;
+          background: $color-primary;
+          height: 32px;
+          color: #fff;
+          line-height: 32px;
+          cursor: pointer;
+
+          &:hover{
+            background: darken($color-primary, 10%), 
+          }
+
+          &:active{
+            background: darken($color-primary, 20%), 
           }
       }
   

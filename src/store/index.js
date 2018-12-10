@@ -3,7 +3,8 @@ import Vue from 'vue'
 
 Vue.use(Vuex)
 
-import mutations from './mutations'
+import mutations from './mutations';
+import getters from './getters'
 
 const store = new Vuex.Store({
     state: {
@@ -18,7 +19,20 @@ const store = new Vuex.Store({
         lableShow: false, //控制标签显示隐藏
 
         alarmList:[], //已设置提醒的数据
+        
+        //书本列表
+        bookList:[{
+          id:'1',
+          name:'项目'
 
+        },
+        {
+          id:'2',
+          name:'js基础'
+
+        }], 
+        
+        // 笔记列表
         noteList: [
             {
               id: "1",
@@ -27,7 +41,12 @@ const store = new Vuex.Store({
               title: "123",
               createTime: "20 分钟前",
               primary: "hgh",
-              selected: true
+              selected: true,
+              book: {
+                id:'1',
+                name: '项目'
+                
+              }
             },
             {
               id: "2",
@@ -36,7 +55,12 @@ const store = new Vuex.Store({
               title: "453",
               createTime: "20 分钟前",
               primary: "124555ggfg5",
-              selected: false
+              selected: false,
+              book: {
+                id:'1',
+                name: '项目'
+                
+              }
             },
             {
               id: "3",
@@ -45,7 +69,12 @@ const store = new Vuex.Store({
               title: "893",
               createTime: "20 分钟前",
               primary: "mmmm",
-              selected: false
+              selected: false,
+              book: {
+                id:'1',
+                name: '项目'
+                
+              }
             },
             {
               id: "4",
@@ -54,7 +83,12 @@ const store = new Vuex.Store({
               title: "185",
               createTime: "20 分钟前",
               primary: "trtt",
-              selected: false
+              selected: false,
+              book: {
+                id:'2',
+                name: 'js基础'
+                
+              }
             },
             {
               id: "5",
@@ -63,7 +97,12 @@ const store = new Vuex.Store({
               title: "1553",
               createTime: "20 分钟前",
               primary: "mkkkk",
-              selected: false
+              selected: false,
+              book: {
+                id:'2',
+                name: 'js基础'
+                
+              }
             },
             {
               id: "6",
@@ -72,7 +111,12 @@ const store = new Vuex.Store({
               title: "222",
               createTime: "20 分钟前",
               primary: "eteyu",
-              selected: false
+              selected: false,
+              book: {
+                id:'2',
+                name: 'js基础'
+                
+              }
             },
             {
               id: "7",
@@ -81,13 +125,19 @@ const store = new Vuex.Store({
               title: "sss",
               createTime: "20 分钟前",
               primary: "mmkkk",
-              selected: false
+              selected: false,
+              book:  {
+                id:'2',
+                name: 'js基础'
+                
+              }
             }
           ]
 
 
     },
-    mutations
+    mutations,
+    getters
 
 })
 

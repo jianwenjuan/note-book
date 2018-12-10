@@ -31,13 +31,16 @@
             </div>
           </div>
         </div>
-        
+
         <!-- 设置过提醒列表 -->
         <div class="node-list-container">
           <div class="alarm-note-list-wrap" v-if="$store.state.alarmList.length">
             <div class="toggle-btn" @click="toggleAlarmList()">
               <div class="left">
-                <span class="iconfont" :class="[isShowAlarmList?'icon-jiantouxia':'icon-jiantouyou']"></span>
+                <span
+                  class="iconfont"
+                  :class="[isShowAlarmList?'icon-jiantouxia':'icon-jiantouyou']"
+                ></span>
                 <span class="text">提醒</span>
               </div>
               <div class="right">
@@ -67,7 +70,10 @@
             >
               <div class="handle-area">
                 <div @click.stop="setAlarm(item,$event)" title="设置提醒">
-                  <span class="iconfont" :class="[item.isAlarm ? 'icon-naozhong': 'icon-alarmclock']"></span>
+                  <span
+                    class="iconfont"
+                    :class="[item.isAlarm ? 'icon-naozhong': 'icon-alarmclock']"
+                  ></span>
                 </div>
                 <div @click.stop="storeNote(item)" title="添加快捷方式">
                   <span class="iconfont" :class="[item.isStore ? 'icon-store': 'icon-xingxing']"></span>
@@ -107,7 +113,7 @@
           </div>
         </div>
 
-        <editorComponent :noteDetail="selectedNote"></editorComponent>
+        <editorComponent v-if="true" :noteDetail="selectedNote" :isEditor="true"></editorComponent>
       </div>
     </div>
 
@@ -199,11 +205,13 @@ export default {
     }
   },
   created() {
-    (this.noteList = this.$store.state.noteList),
-      // 默认展示第一条数据
-      (this.selectedNote = this.noteList.filter(item => {
-        return item.selected === true;
-      })[0]);
+    this.noteList = this.$store.state.noteList;
+    // 默认展示第一条数据
+    this.noteList.forEach(item => {
+      if (item.selected) {
+        this.selectedNote = item;
+      }
+    });
     const self = this;
     const alrmWrap = document.getElementById("alrmWrap");
     let body = document.querySelector("body");

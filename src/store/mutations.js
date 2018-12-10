@@ -1,3 +1,5 @@
+import common from '../common/common';
+
 export default {
 
     //点击新建按钮
@@ -133,6 +135,21 @@ export default {
         })
 
         console.log(state.alarmList);
+    },
+
+    // 编辑日记
+    editorNote(state,data){
+
+        state.noteList.forEach(item => {
+            if(item.id === data.id) {
+                common.deepCopy(data,item);
+            }
+            
+        });
+
+        console.log(state.noteList);
+
+         
     }
 
 }

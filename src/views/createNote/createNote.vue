@@ -1,6 +1,6 @@
 <template>
     <div class="create-wrap">
-        <editorComponent></editorComponent>
+        <editorComponent v-if="true" :isEditor="false"></editorComponent>
     </div>
 </template>
 
