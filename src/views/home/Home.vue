@@ -196,16 +196,17 @@ export default {
     // 删除笔记
     deleteNote(item) {
       this.$Modal.confirm({
-        onOk:()=>{
-          alert(1);
+        cancelCallback: () => {
+        },
+        okCallback: () => {
+          this.$store.commit("deletNote", item);
+          this.noteList.forEach(item => {
+            if (item.selected) {
+              this.selectedNote = item;
+            }
+          });
         }
       });
-      // this.$store.commit("deletNote", item);
-      // this.noteList.forEach(item => {
-      //   if (item.selected) {
-      //     this.selectedNote = item;
-      //   }
-      // });
     },
 
     // 选中笔记

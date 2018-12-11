@@ -29,25 +29,23 @@ export default {
     };
   },
   props:{
-    show:{
-      default:false
-    },
     isShowMask:{
       default:true
     },
     isShowFooter:{
       default: true
-    }
+    },
+    okCallback: Function,
+    cancelCallback: Function
   },
   methods:{
     cancel() {
       this.visible = false;
-      this.$emit('on-cancel')
-
+      this.cancelCallback();
     },
     confirm() {
       this.visible = false;
-      this.$emit('on-ok')
+      this.okCallback();
 
     },
     close() {

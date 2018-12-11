@@ -6,50 +6,27 @@ Modal.newInstance = properties => {
 
     const Instance = new Vue({
         data: Object.assign({},_props,{
-            visible: false,
-            width: 416,
-            title:''
 
+            title:'提示'
         }),
         render(h) {
             return h(Modal, {
                 props: _props,
                 on: {
-                    
                 }
             });
-          
         },
         methods: {
-            cancel(){
-                this.$children[0].visible = false;
-                this.onCancel();
-                this.remove();
-
-            },
-            ok() {
-                this.$children[0].visible = false;
-                this.remove();
-                this.onOk();
-            },
-
-            remove() {
-                setTimeout(()=>{
+            remove () {
+                setTimeout(() => {
                     this.destroy();
-
-                },300)
+                }, 300);
             },
-            destroy() {
+            destroy () {
                 this.$destroy();
                 document.body.removeChild(this.$el);
-                this.onRemove();
             },
-            onOk(){
-
-            },
-            onRemove(){
-
-            }
+         
         }
     });
 
@@ -62,26 +39,22 @@ Modal.newInstance = properties => {
 
     return {
         show(props){
-            if('show' in props) {
-                modal.$parent.show = props.show;
-            }
 
             if('isShowMask' in props){
-                modal.$parent.isShowMask = props.isShowMask;
-
+                modal.isShowMask = props.isShowMask;
             }
 
             if('isShowFooter' in props){
-                modal.$parent.isShowFooter = props.isShowFooter;
+                modal.isShowFooter = props.isShowFooter;
 
             }
 
-            if ('onCancel' in props) {
-                modal.$parent.onCancel = props.onCancel;
+            if ('okCallback' in props) {
+                modal.okCallback = props.okCallback;
             }
 
-            if ('onOk' in props) {
-                modal.$parent.onOk = props.onOk;
+            if ('cancelCallback' in props) {
+                modal.cancelCallback = props.cancelCallback;
             }
 
             modal.visible = true;
