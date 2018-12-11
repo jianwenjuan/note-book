@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import editorComponent from '@/component/editor/noteEditor.vue'
+import editorComponent from '@/component/noteEditor.vue'
 export default {
     name: 'createNote',
     data() {

@@ -128,9 +128,9 @@
 </template>
 
 <script>
-import editorComponent from "@/component/editor/noteEditor.vue";
+import editorComponent from "@/component/noteEditor.vue";
 
-import setAlarm from "@/component/func/setAlarm.vue";
+import setAlarm from "../view-component/setAlarm.vue";
 export default {
   name: "Home",
   data() {
@@ -195,12 +195,17 @@ export default {
 
     // 删除笔记
     deleteNote(item) {
-      this.$store.commit("deletNote", item);
-      this.noteList.forEach(item => {
-        if (item.selected) {
-          this.selectedNote = item;
+      this.$Modal.confirm({
+        onOk:()=>{
+          alert(1);
         }
       });
+      // this.$store.commit("deletNote", item);
+      // this.noteList.forEach(item => {
+      //   if (item.selected) {
+      //     this.selectedNote = item;
+      //   }
+      // });
     },
 
     // 选中笔记

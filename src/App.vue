@@ -77,10 +77,10 @@
 </template>
 
 <script>
-import collection from "@/component/collection/collection.vue";
-import book from "@/component/book/book.vue";
-import lableContent from "@/component/lable/lable.vue";
-import shareComponent from "@/component/share/share.vue";
+import collection from "@/views/collection/collection.vue";
+import book from "@/views/book/book.vue";
+import lableContent from "@/views/lable/lable.vue";
+import shareComponent from "@/views/share/share.vue";
 export default {
   name: "App",
   data() {
