@@ -6,7 +6,7 @@ function getModalInstance(render = undefined) {
     modalInstance = modalInstance || Modal.newInstance({
         show: true,
         isShowMask: true,
-        isShowFooter: true,
+        isShowFooter: false,
         render
 
     });

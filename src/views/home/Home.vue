@@ -196,9 +196,11 @@ export default {
     // 删除笔记
     deleteNote(item) {
       this.$Modal.confirm({
-        cancelCallback: () => {
+        showCancel:true,
+        content:'您确定要删除这条笔记吗？',
+        onCancel: () => {
         },
-        okCallback: () => {
+        onOk: () => {
           this.$store.commit("deletNote", item);
           this.noteList.forEach(item => {
             if (item.selected) {

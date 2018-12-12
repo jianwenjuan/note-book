@@ -1,23 +1,27 @@
 <template>
-  <div class="modal-container" v-show="visible">
-    <div class="modal-mask" v-if="isShowMask"></div>
-    <div class="modal-panel">
-      <div class="modal-close" @click="close">
-        <span class="iconfont icon-guanbi"></span>
+  <div class="modal-container">
+    <transition name="fade">
+      <div class="modal-mask" v-show="visible" v-if="isShowMask"></div>
+    </transition>
+
+      <div class="modal-panel" :style="mainStyles" v-show="visible">
+        <div class="modal-close" @click="close" v-if="closable">
+          <span class="iconfont icon-guanbi"></span>
+        </div>
+        <header class="modal-title" v-if="showHead">
+          <slot name="header"></slot>
+        </header>
+
+        <slot></slot>
+
+        <footer class="modal-footer" v-if="isShowFooter">
+          <slot name="footer">
+            <button class="cancel" @click="cancel">取消</button>
+            <button class="confirm" @click="confirm">确定</button>
+          </slot>
+        </footer>
       </div>
-      <header class="modal-title">
-        <slot name="header"></slot>
-      </header>
-      <main>
-        <slot name="content"></slot>
-      </main>
-      <footer class="modal-footer" v-show="isShowFooter">
-        <slot name="footer">
-          <button class="cancel" @click="cancel">取消</button>
-          <button class="confirm" @click="confirm">确定</button>
-        </slot>
-      </footer>
-    </div>
+  
   </div>
 </template>
 <script>
@@ -25,10 +29,19 @@ export default {
   name: "Modal",
   data() {
     return {
-      visible: this.value
+      visible: this.value,
+      showHead: true
     };
   },
   props: {
+    width: {
+      type: [Number, String],
+      default: 520
+    },
+    height: {
+      type: [Number, String],
+      default: 300
+    },
     value: {
       type: Boolean,
       default: false
@@ -38,6 +51,13 @@ export default {
     },
     isShowFooter: {
       default: true
+    },
+    closable: {
+      type: Boolean,
+      default: true
+    },
+    title: {
+      type: String
     },
     okCallback: Function,
     cancelCallback: Function
@@ -56,8 +76,31 @@ export default {
       this.$emit("on-close");
     }
   },
-  watch:{
-    value (val) {
+  computed: {
+    mainStyles() {
+      let style = {};
+      const width = parseInt(this.width);
+      const height = parseInt(this.height);
+
+      const styleWidth = {
+        width: width <= 100 ? `${width}%` : `${width}px`,
+        height: height <= 100 ? `${height}%` : `${height}px`
+      };
+
+      Object.assign(style, styleWidth);
+
+      return style;
+    }
+  },
+  mounted() {
+    let showHead = true;
+    if (this.$slots.header === undefined && !this.title) {
+      showHead = false;
+    }
+    this.showHead = showHead;
+  },
+  watch: {
+    value(val) {
       this.visible = val;
     }
   }
@@ -78,8 +121,8 @@ export default {
   .modal-panel {
     background: #fff;
     background: #fff;
-    min-width: 600px;
-    min-height: 300px;
+    width: 600px;
+    height: 300px;
     border-radius: 4px;
     box-shadow: $box-shadow;
     position: absolute;
@@ -90,7 +133,7 @@ export default {
     display: flex;
     flex-direction: column;
 
-    header {
+    .modal-title {
       height: 56px;
       padding-left: 32px;
       line-height: 56px;
@@ -99,18 +142,18 @@ export default {
       font-weight: bold;
     }
 
-    main {
+    .modal-body {
       flex: 1;
       padding: 0 32px;
     }
 
-    footer {
+    .modal-footer {
       height: 56px;
       text-align: center;
 
       button {
         appearance: none;
-        width: 200px;
+        width: 100px;
         height: 32px;
         border-radius: 4px;
         line-height: 32px;
