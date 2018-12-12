@@ -25,20 +25,24 @@ export default {
   name: "Modal",
   data() {
     return {
-      visible: true
+      visible: this.value
     };
   },
-  props:{
-    isShowMask:{
-      default:true
+  props: {
+    value: {
+      type: Boolean,
+      default: false
     },
-    isShowFooter:{
+    isShowMask: {
+      default: true
+    },
+    isShowFooter: {
       default: true
     },
     okCallback: Function,
     cancelCallback: Function
   },
-  methods:{
+  methods: {
     cancel() {
       this.visible = false;
       this.cancelCallback();
@@ -46,14 +50,16 @@ export default {
     confirm() {
       this.visible = false;
       this.okCallback();
-
     },
     close() {
       this.visible = false;
-      this.$emit('on-close')
-
+      this.$emit("on-close");
     }
-
+  },
+  watch:{
+    value (val) {
+      this.visible = val;
+    }
   }
 };
 </script>
@@ -102,7 +108,7 @@ export default {
       height: 56px;
       text-align: center;
 
-      button{
+      button {
         appearance: none;
         width: 200px;
         height: 32px;
@@ -114,24 +120,23 @@ export default {
         border: none;
         margin: 0 4px;
 
-        &.cancel{
+        &.cancel {
           color: #999;
           border: 1px solid $color-border;
           background: #fff;
 
-          &:hover{
+          &:hover {
             border-color: $color-primary;
             color: $color-primary;
-
           }
         }
 
-        &.confirm{
+        &.confirm {
           background: $color-primary;
           color: #fff;
 
-          &:hover{
-            background: darken($color-primary, 10%)
+          &:hover {
+            background: darken($color-primary, 10%);
           }
         }
       }
@@ -142,15 +147,14 @@ export default {
       right: 16px;
       top: 8px;
       cursor: pointer;
-      .iconfont{
+      .iconfont {
         font-size: 12px;
       }
 
-      &:hover{
-        .iconfont{
+      &:hover {
+        .iconfont {
           color: $color-primary;
         }
-        
       }
     }
   }
