@@ -15,7 +15,7 @@
           <div class="book-info">
             <div class="book-title">{{book.name}}</div>
             <div class="book-num">
-              <span>{{book.notes.length}}</span>条笔记
+              <span>{{book.noteList.length}}</span>条笔记
             </div>
           </div>
           <div class="handle">
@@ -23,7 +23,7 @@
               <span class="iconfont icon-xingxing"></span>
             </div>
             <div>
-              <span class="iconfont icon-shanchu"></span>
+              <span class="iconfont icon-shanchu" @click="deleteBook(book)"></span>
             </div>
           </div>
         </div>
@@ -39,6 +39,19 @@ export default {
   },
   created(){
     
+  },
+  methods:{
+    deleteBook(book){
+     this.$Modal.confirm({
+        showCancel: true,
+        content: "您确定要删除这本书吗？",
+        onCancel: () => {},
+        onOk: () => {
+          this.$store.commit("deletBook", book);
+        }
+     })
+
+    }
   }
 };
 </script>

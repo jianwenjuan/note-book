@@ -1,4 +1,5 @@
 import common from '../common/common';
+import { stat } from 'fs';
 
 export default {
 
@@ -147,15 +148,15 @@ export default {
             }
 
         });
-        state.alarmList.forEach((item,i)=>{
-            item.noteList.forEach((lable,index)=>{
-                if(lable.id === data.id){
-                    item.noteList.splice(index,1);
+        state.alarmList.forEach((item, i) => {
+            item.noteList.forEach((lable, index) => {
+                if (lable.id === data.id) {
+                    item.noteList.splice(index, 1);
                 }
             })
 
-            if(!item.noteList.length) {
-                state.alarmList.splice(i,1);
+            if (!item.noteList.length) {
+                state.alarmList.splice(i, 1);
             }
         })
     },
@@ -173,7 +174,31 @@ export default {
     creatNote(state, data) {
         state.noteList.push(data);
 
-        console.log(this.getters.mapBooksData);
+
+        const mapBooksData = this.getters.mapBooksData;
+
+        let booksObj = [];
+
+        for (let key in mapBooksData) {
+            if (Object.prototype.hasOwnProperty.call(mapBooksData, key)) {
+                const obj = {
+                    id: '',
+                    name: '',
+                    noteList: []
+                };
+                mapBooksData[key].forEach((item) => {
+                    obj.id = item.id;
+                    obj.name = item.name;
+                    obj.noteList.push(item.note);
+
+                });
+
+                booksObj.push(obj);
+            }
+
+        }
+
+        state.bookList = booksObj;
     },
 
     // 删除日记
@@ -187,6 +212,34 @@ export default {
         if (data.selected) {
             state.noteList[0].selected = true;
         }
+
+
+    },
+
+
+    // 删除书本
+    deletBook(state, data) {
+        state.bookList.forEach((item, index) => {
+            if (item.id === data.id) {
+                state.bookList.splice(index, 1);
+            }
+
+        });
+
+        for (let i = 0; i < state.noteList.length; i++) {
+            for(let j = 0; j <data.noteList.length;j++){
+                if(state.noteList[i].id === data.noteList[j].id){
+                    state.noteList.splice(i,1);
+                }
+            }
+
+        }
+
+        state.alarmList.forEach((alarmItem, index) => {
+            if (alarmItem.book.id === data.id) {
+                state.alarmList.splice(index, 1);
+            }
+        })
 
 
     }
