@@ -4,24 +4,23 @@
       <div class="modal-mask" v-show="visible" v-if="isShowMask"></div>
     </transition>
 
-      <div class="modal-panel" :style="mainStyles" v-show="visible">
-        <div class="modal-close" @click="close" v-if="closable">
-          <span class="iconfont icon-guanbi"></span>
-        </div>
-        <header class="modal-title" v-if="showHead">
-          <slot name="header"></slot>
-        </header>
-
-        <slot></slot>
-
-        <footer class="modal-footer" v-if="isShowFooter">
-          <slot name="footer">
-            <button class="cancel" @click="cancel">取消</button>
-            <button class="confirm" @click="confirm">确定</button>
-          </slot>
-        </footer>
+    <div class="modal-panel" :style="mainStyles" v-show="visible">
+      <div class="modal-close" @click="close" v-if="closable">
+        <span class="iconfont icon-guanbi"></span>
       </div>
-  
+      <header class="modal-title" v-if="showHead">
+        <slot name="header"></slot>
+      </header>
+
+      <slot></slot>
+
+      <footer class="modal-footer" v-if="isShowFooter">
+        <slot name="footer">
+          <button class="cancel" @click="cancel">取消</button>
+          <button class="confirm" @click="confirm">确定</button>
+        </slot>
+      </footer>
+    </div>
   </div>
 </template>
 <script>
@@ -44,7 +43,7 @@ export default {
     },
     value: {
       type: Boolean,
-      default: false
+      default: true
     },
     isShowMask: {
       default: true

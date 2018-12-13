@@ -44,17 +44,39 @@
                 <span class="text">提醒</span>
               </div>
               <div class="right">
-                <span class="num">{{$store.state.alarmList.length}}</span>
-                <span class="iconfont icon-naozhong"></span>
+                <div v-show="!isShowAlarmList">
+                  <span class="num">{{$store.state.alarmList.length}}</span>
+                  <span class="iconfont icon-naozhong"></span>
+                </div>
+                <div v-show="isShowAlarmList">
+                  <span class="iconfont icon-shezhi"></span>
+                </div>
               </div>
             </div>
 
             <ul class="alarm-note-list" v-show="isShowAlarmList">
-              <li>
-                <div v-for="(item,index) in $store.state.alarmList" :key="index">
-                  <span></span>
-                  <span>{{item.title}}</span>
+              <li class="book-list" v-for="(item,index) in $store.state.alarmList" :key="index">
+                <div class="book" @click="dropNotes(item)">
+                  <div class="left">
+                    <span class="iconfont icon-book"></span>
+                    <span>{{item.book.name}}</span>
+                  </div>
+                  <div class="right">
+                    <span class="iconfont" :class="[item.isShowNotes?'icon-jiantouxia':'icon-jiantouyou']"></span>
+                  </div>
                 </div>
+                <ul class="book-note-list" v-show="item.isShowNotes">
+                  <li v-for="(note,i) in item.noteList" :key="i">
+                    <div class="info">
+                      <span class="iconfont icon-biji1"></span>
+                      <span>{{note.title}}</span>
+                    </div>
+                    <div class="handler">
+                      <span>编辑</span>
+                      <span class="iconfont icon-weixuanzhong"></span>
+                    </div>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>
@@ -196,10 +218,9 @@ export default {
     // 删除笔记
     deleteNote(item) {
       this.$Modal.confirm({
-        showCancel:true,
-        content:'您确定要删除这条笔记吗？',
-        onCancel: () => {
-        },
+        showCancel: true,
+        content: "您确定要删除这条笔记吗？",
+        onCancel: () => {},
         onOk: () => {
           this.$store.commit("deletNote", item);
           this.noteList.forEach(item => {
@@ -225,6 +246,9 @@ export default {
     // 切换设置提醒面板
     toggleAlarmList() {
       this.isShowAlarmList = !this.isShowAlarmList;
+    },
+    dropNotes(item) {
+      item.isShowNotes = !item.isShowNotes
     }
   },
   created() {

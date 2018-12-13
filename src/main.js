@@ -17,6 +17,8 @@ Vue.config.productionTip = false
 import Modal from './component/modal/index'
 
 Vue.prototype.$Modal = Modal;
+
+Vue.component('Modal',Modal);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -112,65 +112,87 @@ export default {
 
     // 添加设置提醒的数据
     addAlarmData(state, data) {
-        if (data.isAlarm) {
-            state.alarmList.push(data);
+        const len = state.alarmList.length;
+        if (len) {
+            const isContainBook = state.alarmList.some((item) => {
+                if (item.book.id === data.book.id) {
+                    item.noteList.push(data);
+                }
+                return item.book.id === data.book.id;
+
+            });
+
+            if (!isContainBook) {
+                state.alarmList.push({
+                    book: data.book,
+                    isShowNotes: false,
+                    noteList: [data]
+                })
+            }
+
+        } else {
+            state.alarmList.push({
+                book: data.book,
+                isShowNotes: false,
+                noteList: [data]
+            })
 
         }
-
-        console.log(state.alarmList);
-
     },
 
     // 清楚设置提醒的数据
     removeAlarmData(state, data) {
         state.noteList.forEach(item => {
-            if(item.id === data.id) {
+            if (item.id === data.id) {
                 item.isAlarm = false;
             }
-            
+
         });
-        state.alarmList = state.alarmList.filter((item) => {
-            return item.id !== data.id;
+        state.alarmList.forEach((item)=>{
+            item.noteList.forEach((lable,index)=>{
+                if(lable.id === data.id){
+                    item.noteList.splice(index,1);
+                }
+
+            })
 
         })
-
-        console.log(state.alarmList);
     },
 
     // 编辑日记
-    editorNote(state,data){
+    editorNote(state, data) {
 
         state.noteList.forEach(item => {
-            if(item.id === data.id) {
-                common.deepCopy(data,item);
+            if (item.id === data.id) {
+                common.deepCopy(data, item);
             }
-            
+
         });
 
         console.log(state.noteList);
 
-         
+
     },
 
     // 新增日记
-    creatNote(state,data){
+    creatNote(state, data) {
         console.log(data);
         state.noteList.push(data);
 
     },
-    
-    // 删除日记
-    deletNote(state,data) {
 
-        state.noteList.forEach((item,index)=>{
-            if(item.id === data.id){
-                state.noteList.splice(index,1);
-         
+    // 删除日记
+    deletNote(state, data) {
+
+        state.noteList.forEach((item, index) => {
+            if (item.id === data.id) {
+                state.noteList.splice(index, 1);
+
             }
 
         });
 
-        if(data.selected){
+        if (data.selected) {
             state.noteList[0].selected = true;
         }
 
