@@ -52,7 +52,6 @@ export default {
         if (state.collectionShow === false) {
             state.noteShow = true;
         }
-
     },
 
 
@@ -158,41 +157,31 @@ export default {
             if(!item.noteList.length) {
                 state.alarmList.splice(i,1);
             }
-
         })
     },
 
     // 编辑日记
     editorNote(state, data) {
-
         state.noteList.forEach(item => {
             if (item.id === data.id) {
                 common.deepCopy(data, item);
             }
-
         });
-
-        console.log(state.noteList);
-
-
     },
 
     // 新增日记
     creatNote(state, data) {
-        console.log(data);
         state.noteList.push(data);
 
+        console.log(this.getters.mapBooksData);
     },
 
     // 删除日记
     deletNote(state, data) {
-
         state.noteList.forEach((item, index) => {
             if (item.id === data.id) {
                 state.noteList.splice(index, 1);
-
             }
-
         });
 
         if (data.selected) {
