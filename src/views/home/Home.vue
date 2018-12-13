@@ -66,13 +66,13 @@
                   </div>
                 </div>
                 <ul class="book-note-list" v-show="item.isShowNotes">
-                  <li v-for="(note,i) in item.noteList" :key="i">
+                  <li v-for="(note,i) in item.noteList" :key="i" @click="selectNote(note)">
                     <div class="info">
                       <span class="iconfont icon-biji1"></span>
                       <span>{{note.title}}</span>
                     </div>
                     <div class="handler">
-                      <span>编辑</span>
+                      <span @click.stop="setAlarm(note,$event)">编辑</span>
                       <span class="iconfont icon-weixuanzhong"></span>
                     </div>
                   </li>
@@ -236,10 +236,11 @@ export default {
     selectNote(item) {
       this.noteList.forEach(obj => {
         obj.selected = false;
+        if(obj.id === item.id){
+          obj.selected = true;
+        }
       });
-      item.selected = true;
       this.isItemSet = false;
-
       this.selectedNote = item;
     },
 

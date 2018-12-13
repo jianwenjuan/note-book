@@ -148,13 +148,16 @@ export default {
             }
 
         });
-        state.alarmList.forEach((item)=>{
+        state.alarmList.forEach((item,i)=>{
             item.noteList.forEach((lable,index)=>{
                 if(lable.id === data.id){
                     item.noteList.splice(index,1);
                 }
-
             })
+
+            if(!item.noteList.length) {
+                state.alarmList.splice(i,1);
+            }
 
         })
     },
