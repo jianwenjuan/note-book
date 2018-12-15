@@ -4,10 +4,22 @@ import Vue from 'vue'
 Vue.use(Vuex)
 
 import mutations from './mutations';
-import getters from './getters'
+import getters from './getters';
+import actions from './actions';
 
 const store = new Vuex.Store({
   state: {
+    isLogin: true,
+
+    user:{
+      login_username: '',
+      login_token: '',
+      login_password: '',
+  
+
+    },
+   
+
     isShowLeftMenu: true, //是否显示左侧菜单
     addShow: false,  //控制添加按钮的点击状态
     searchShow: false, //控制搜索展示
@@ -29,8 +41,9 @@ const store = new Vuex.Store({
 
   },
   mutations,
-  getters
+  getters,
+  actions
 
 })
 
-export default store
+export default store;

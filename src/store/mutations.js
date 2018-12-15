@@ -1,7 +1,13 @@
 import common from '../common/common';
-import { stat } from 'fs';
+
 
 export default {
+
+    toLogin(state) {
+        state.isLogin = false;
+    },
+
+  
 
     //点击新建按钮
     add(state) {
@@ -227,9 +233,9 @@ export default {
         });
 
         for (let i = 0; i < state.noteList.length; i++) {
-            for(let j = 0; j <data.noteList.length;j++){
-                if(state.noteList[i].id === data.noteList[j].id){
-                    state.noteList.splice(i,1);
+            for (let j = 0; j < data.noteList.length; j++) {
+                if (state.noteList[i].id === data.noteList[j].id) {
+                    state.noteList.splice(i, 1);
                 }
             }
 

@@ -1,9 +1,8 @@
 <template>
   <div class="note-app-container">
     <div class="note-main-container">
-      
       <!-- 左侧菜单区域 -->
-      <div class="note-left-menu" v-show="$store.state.isShowLeftMenu">
+      <div class="note-left-menu" v-show="$store.state.isLogin && $store.state.isShowLeftMenu">
         <!-- logo -->
         <div class="logo">
           <span class="iconfont icon-damailogo"></span>
@@ -36,9 +35,12 @@
             <span class="iconfont" :class="[item.icon]"></span>
           </div>
         </div>
+
+        <!-- 头像 -->
+        <div class="aventor" title="退出登录" @click="logout"></div>
       </div>
       <!-- 右侧内容区域 -->
-      <div class="note-right-content" :class="[$store.state.isShowLeftMenu?'':'noLeft']">
+      <div class="note-right-content" :class="[$store.state.isLogin && $store.state.isShowLeftMenu?'':'noLeft']">
         <router-view/>
 
         <!-- 收藏 笔记本 标签面板区 -->
@@ -64,7 +66,7 @@
                 <lableContent></lableContent>
               </div>
             </transition>
-             <transition name="slide-fade">
+            <transition name="slide-fade">
               <div class="info" v-show="$store.state.shareShow">
                 <shareComponent></shareComponent>
               </div>
@@ -81,6 +83,8 @@ import collection from "@/views/collection/collection.vue";
 import book from "@/views/book/book.vue";
 import lableContent from "@/views/lable/lable.vue";
 import shareComponent from "@/views/share/share.vue";
+import common from "@/common/common.js";
+
 export default {
   name: "App",
   data() {
@@ -156,6 +160,17 @@ export default {
     },
     hideInfo() {
       this.$store.commit("hideInfo");
+    },
+    logout() {
+      const _self = this;
+      this.$Modal.confirm({
+        content: "确定要退出登录吗？",
+        showCancel: true,
+        onOk: () => {
+          common.delCookie("session");
+          _self.$router.push('/login');
+        }
+      });
     }
   },
   components: { collection, book, lableContent, shareComponent },
@@ -180,8 +195,10 @@ export default {
       let routeName = this.$route.path;
       if (routeName === "/create") {
         this.$store.commit("navToCreate");
-      } else if (routeName === "/") {
+      } else if (routeName === "/home") {
         this.$store.commit("navToHome");
+      } else if (routeName === "/login") {
+        this.$store.commit("toLogin");
       }
     }
   }
@@ -203,5 +220,15 @@ export default {
 .slide-fade-leave-to {
   transform: translateX(-800px);
   opacity: 0;
+}
+.aventor {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: red;
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
+  cursor: pointer;
 }
 </style>

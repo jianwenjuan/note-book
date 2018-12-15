@@ -18,7 +18,7 @@ import Modal from './component/modal/index'
 
 Vue.prototype.$Modal = Modal;
 
-Vue.component('Modal',Modal);
+Vue.component('Modal', Modal);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -27,3 +27,6 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+
+

@@ -109,7 +109,7 @@ export default {
         book: common.deepCopy(this.currentBook,{})
       };
       this.$store.commit("creatNote", newNoteData);
-      this.$router.push("/");
+      this.$router.push("/home");
     },
 
     // 切换书本
