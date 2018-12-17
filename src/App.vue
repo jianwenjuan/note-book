@@ -37,10 +37,15 @@
         </div>
 
         <!-- 头像 -->
-        <div class="aventor" title="退出登录" @click="logout"></div>
+        <div class="aventor" title="退出登录" @click="logout">
+          <span class="iconfont icon-tuichu"></span>
+        </div>
       </div>
       <!-- 右侧内容区域 -->
-      <div class="note-right-content" :class="[$store.state.isLogin && $store.state.isShowLeftMenu?'':'noLeft']">
+      <div
+        class="note-right-content"
+        :class="[$store.state.isLogin && $store.state.isShowLeftMenu?'':'noLeft']"
+      >
         <router-view/>
 
         <!-- 收藏 笔记本 标签面板区 -->
@@ -168,7 +173,7 @@ export default {
         showCancel: true,
         onOk: () => {
           common.delCookie("session");
-          _self.$router.push('/login');
+          _self.$router.push("/login");
         }
       });
     }
@@ -225,10 +230,16 @@ export default {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: red;
   position: absolute;
   bottom: 16px;
   left: 20px;
   cursor: pointer;
+  text-align: center;
+
+  .iconfont {
+    font-size: 20px;
+    font-weight: bold;
+    color: $color-primary;
+  }
 }
 </style>

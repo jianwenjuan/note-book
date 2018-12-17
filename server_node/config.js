@@ -7,8 +7,8 @@ module.exports = {
     mysql_psw:'',
     mysql_dbname:'an_juk',
 
-    root_username:'jianjian',
-    root_password:'e10adc3949ba59abbe56e057f20f883e',
+    username:'jianjian',
+    password:'e10adc3949ba59abbe56e057f20f883e',
 
 
 }

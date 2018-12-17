@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/views/home/Home'
 import createNote from '@/views/createNote/createNote.vue'
 import login from '@/views/login/login.vue'
+import register from '@/views/login/register.vue'
 import common from '@/common/common.js'
 
 
@@ -14,6 +15,12 @@ const router = new Router({
     {
       path: '/',
       redirect: '/home'
+    },
+    {
+      path:'/register',
+      name:'register',
+      component: register
+
     },
     {
       path: '/login',

@@ -1,7 +1,7 @@
 <template>
-  <div class="login-view">
-    <div class="login-panel">
-      <h1 class="login-title">登录</h1>
+  <div class="register-view">
+    <div class="register-panel">
+      <h1 class="register-title">注册</h1>
       <form @submit.prevent="onSubmit()">
         <div class="input-item">
           <input v-model="username" type="text" name="username" placeholder="用户名">
@@ -9,28 +9,22 @@
         <div class="input-item">
           <input v-model="password" type="password" name="password" placeholder="密码">
         </div>
-
         <button :disabled="isDisabled" class="submit" type="submit">{{loginState}}</button>
       </form>
-
-      <div class="login-bottom">
-        <div class="regBtn" @click="toRegister">注册</div>
-        <div class="forgetBtn">忘记密码?</div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import common from "@/common/common.js";
 
+import common from "@/common/common.js";
 export default {
-  name: "login",
+  name: "register",
   data() {
     return {
       isDisabled: false,
-      loginState: "登录"
+      loginState: "注册"
     };
   },
   computed: {
@@ -44,32 +38,29 @@ export default {
     beforeSubmit() {
       // console.log('Submiting...')
       this.isDisabled = true;
-      this.loginState = "正在登录...";
+      this.loginState = "正在注册...";
     },
 
     onSubmit() {
       this.beforeSubmit();
       const _self = this;
 
-      console.log(this);
-
       this.$store
-        .dispatch("login", {
+        .dispatch("register", {
           username: this.username,
           password: this.password
         })
         .then(res => {
           if (res && res.code === 0) {
             console.log(res);
-            common.setCookie("session", "55555jjiij");
-            _self.$store.state.isLogin = true;
-            _self.$router.push("/home");
+            _self.$router.push("/login");
+            
           } else {
             _self.$Modal.error({
               content: res.msg,
               onOk: () => {
                 _self.isDisabled = false;
-                _self.loginState = "登录";
+                _self.loginState = "注册";
               }
             });
           }
@@ -77,18 +68,15 @@ export default {
         .catch(function(error) {
           console.log(error);
           _self.isDisabled = false;
-          _self.loginState = "登录";
+          _self.loginState = "注册";
         });
-    },
-    toRegister() {
-       this.$router.push("/register");
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.login-view {
+.register-view {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -96,13 +84,13 @@ export default {
   justify-content: center;
   align-items: center;
   background: $color-primary;
-  .login-panel {
+  .register-panel {
     width: 400px;
     height: 300px;
     background: #fff;
     box-shadow: $box-shadow;
     padding: 16px;
-    .login-title {
+    .register-title {
       text-align: center;
       height: 64px;
       line-height: 64px;
@@ -149,7 +137,7 @@ export default {
       }
     }
 
-    .login-bottom{
+    .register-bottom{
       margin-top: 16px;
       display: flex;
 

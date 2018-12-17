@@ -3,7 +3,7 @@
     <!-- 搜素区域 -->
     <transition name="slide-fade">
       <div class="note-search-area" v-if="$store.state.searchShow">
-        <input type="text" placeholder="搜索笔记">
+        <input type="text" v-modal="searchInfo" placeholder="搜索笔记"  @keydown.enter="searchDown">
         <div class="slect-book-area">
           <span class="info">正在搜索</span>
           <div class="select-btn">
@@ -23,7 +23,7 @@
           <h4>笔记</h4>
           <div class="note-info">
             <div class="note-total">
-              <span>1</span>条笔记
+              <span>{{noteList.length}}</span>条笔记
             </div>
             <div class="note-chose">
               选项
@@ -62,7 +62,10 @@
                     <span>{{item.book.name}}</span>
                   </div>
                   <div class="right">
-                    <span class="iconfont" :class="[item.isShowNotes?'icon-jiantouxia':'icon-jiantouyou']"></span>
+                    <span
+                      class="iconfont"
+                      :class="[item.isShowNotes?'icon-jiantouxia':'icon-jiantouyou']"
+                    ></span>
                   </div>
                 </div>
                 <ul class="book-note-list" v-show="item.isShowNotes">
@@ -109,9 +112,15 @@
               <div class="note-primary">{{item.primary}}</div>
             </div>
           </div>
+
+          <!-- 操作提示 -->
+          <div class="note-handler-tip" v-show="!$store.state.noteList.length">
+            <img src="../../assets/note.png">
+            <p>点击 + 添加笔记</p>
+          </div>
         </div>
       </div>
-      <div class="note-detail-area">
+      <div class="note-detail-area" v-show="noteList.length">
         <!-- 操作区域 -->
         <div class="handler-area">
           <div title="设置提醒">
@@ -153,10 +162,12 @@
 import editorComponent from "@/component/noteEditor.vue";
 
 import setAlarm from "../view-component/setAlarm.vue";
+import { mapState } from "vuex";
 export default {
   name: "Home",
   data() {
     return {
+      searchInfo:'',
       noteList: [],
       selectedNote: {},
       postion: {},
@@ -236,7 +247,7 @@ export default {
     selectNote(item) {
       this.noteList.forEach(obj => {
         obj.selected = false;
-        if(obj.id === item.id){
+        if (obj.id === item.id) {
           obj.selected = true;
         }
       });
@@ -249,7 +260,15 @@ export default {
       this.isShowAlarmList = !this.isShowAlarmList;
     },
     dropNotes(item) {
-      item.isShowNotes = !item.isShowNotes
+      item.isShowNotes = !item.isShowNotes;
+    },
+    // 搜索
+    searchDown(){
+      const _self = this;
+      this.noteList =  this.$store.state.noteList.filter((item)=>{
+        return item.title.match(this.searchInfo);
+      });
+
     }
   },
   created() {
@@ -280,7 +299,6 @@ export default {
       false
     );
   },
-
   components: { editorComponent, setAlarm }
 };
 </script>
@@ -302,5 +320,13 @@ export default {
 .slide-fade-leave-to {
   transform: translateY(-300px);
   opacity: 0;
+}
+.note-handler-tip {
+  text-align: center;
+  padding-top: 40px;
+
+  p {
+    text-align: center;
+  }
 }
 </style>
