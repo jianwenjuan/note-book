@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="book-list">
-      <div class="book-item" v-for="(book,index) in $store.state.bookList" :key="index">
+      <div class="book-item" v-for="(book,index) in $store.state.bookList" :key="index" @click="selectBook(book)">
         <div class="book-wrap">
           <div class="book-info">
             <div class="book-title">{{book.name}}</div>
@@ -23,7 +23,7 @@
               <span class="iconfont icon-xingxing"></span>
             </div>
             <div>
-              <span class="iconfont icon-shanchu" @click="deleteBook(book)"></span>
+              <span class="iconfont icon-shanchu" @click.stop="deleteBook(book)"></span>
             </div>
           </div>
         </div>
@@ -35,7 +35,8 @@
 export default {
   name: "book",
   data() {
-    return {};
+    return {
+    };
   },
   created(){
     
@@ -50,7 +51,9 @@ export default {
           this.$store.commit("deletBook", book);
         }
      })
-
+    },
+    selectBook(book){
+      this.$store.commit('selectBook',book);
     }
   }
 };

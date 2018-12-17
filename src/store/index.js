@@ -34,6 +34,7 @@ const store = new Vuex.Store({
 
     //书本列表
     bookList: [],
+    selectedBook:null,
 
     // 笔记列表
     noteList: []

@@ -47,6 +47,11 @@ export default {
 
     },
 
+    // 
+    navToNote(state) {
+        state.selectedBook = null;
+    },
+
     // 收藏显示隐藏
     collect(state) {
         state.collectionShow = !state.collectionShow;
@@ -179,10 +184,10 @@ export default {
     // 新增日记
     creatNote(state, data) {
         // 日记列表新增数据
-        state.noteList.forEach((item)=>{
+        state.noteList.forEach((item) => {
             item.selected = false;
         });
-        
+
         // 显示新增数据的详情
         data.selected = true;
         state.noteList.push(data);
@@ -209,13 +214,13 @@ export default {
             }
 
         }
-        
+
         // 更新书本数据
         state.bookList = booksObj;
     },
 
     // 删除日记
-    deletNote(state, data) {     
+    deletNote(state, data) {
         state.noteList.forEach((item, index) => {
             if (item.id === data.id) {
                 state.noteList.splice(index, 1);
@@ -226,17 +231,17 @@ export default {
                 state.noteList[0].selected = true;
             }
         }
-        
+
         // 删除对应书本的数据
-        state.bookList.forEach((item,i)=>{
-            if(item.id === data.book.id) {
-                item.noteList.forEach((lable,index)=>{
-                    if(lable.id === data.id) {
-                        item.noteList.splice(index,1);
-                        
+        state.bookList.forEach((item, i) => {
+            if (item.id === data.book.id) {
+                item.noteList.forEach((lable, index) => {
+                    if (lable.id === data.id) {
+                        item.noteList.splice(index, 1);
+
                         // 如果书本没有笔记，则删掉此书本
-                        if(!item.noteList.length){
-                            state.bookList.splice(i,1);
+                        if (!item.noteList.length) {
+                            state.bookList.splice(i, 1);
                         }
                     }
 
@@ -246,15 +251,15 @@ export default {
         })
 
         // 删除对应提醒的数据
-        state.alarmList.forEach((item,i)=>{
-            if(item.book.id === data.book.id) {
-                item.noteList.forEach((lable,index)=>{
-                    if(lable.id === data.id) {
-                        item.noteList.splice(index,1);
-                        
+        state.alarmList.forEach((item, i) => {
+            if (item.book.id === data.book.id) {
+                item.noteList.forEach((lable, index) => {
+                    if (lable.id === data.id) {
+                        item.noteList.splice(index, 1);
+
                         // 如果书本没有笔记，则删掉此书本
-                        if(!item.noteList.length){
-                            state.alarmList.splice(i,1);
+                        if (!item.noteList.length) {
+                            state.alarmList.splice(i, 1);
                         }
                     }
                 })
@@ -289,6 +294,17 @@ export default {
         })
 
 
+    },
+
+    // 选中书本
+    selectBook(state, data) {
+        state.bookList.forEach((item)=>{
+            item.selected = false;
+
+        })
+        data.selected = true;
+        state.selectedBook = data;
+        state.bookShow = false;
     }
 
 

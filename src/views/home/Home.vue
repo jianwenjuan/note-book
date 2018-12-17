@@ -3,7 +3,7 @@
     <!-- 搜素区域 -->
     <transition name="slide-fade">
       <div class="note-search-area" v-if="$store.state.searchShow">
-        <input type="text" v-modal="searchInfo" placeholder="搜索笔记"  @keydown.enter="searchDown">
+        <input type="text" v-modal="searchInfo" placeholder="搜索笔记" @keydown.enter="searchDown">
         <div class="slect-book-area">
           <span class="info">正在搜索</span>
           <div class="select-btn">
@@ -19,17 +19,22 @@
       <!-- 左侧 -->
       <div class="note-list-area" v-show="$store.state.isShowLeftMenu">
         <!-- 标题区域 -->
-        <div class="note-module-title">
-          <h4>笔记</h4>
-          <div class="note-info">
-            <div class="note-total">
-              <span>{{noteList.length}}</span>条笔记
-            </div>
-            <div class="note-chose">
-              选项
-              <span class="iconfont icon-jiantouxia"></span>
+        <div class="note-module-title" v-if="!$store.state.selectedBook">
+          <div>
+            <h4>笔记</h4>
+            <div class="note-info">
+              <div class="note-total">
+                <span>{{noteList.length}}</span>条笔记
+              </div>
+              <div class="note-chose">
+                选项
+                <span class="iconfont icon-jiantouxia"></span>
+              </div>
             </div>
           </div>
+        </div>
+        <div class="book-module-title" v-if="$store.state.selectedBook">
+          <div class="book-name">{{$store.state.selectedBook.name}}</div>
         </div>
 
         <!-- 设置过提醒列表 -->
@@ -167,7 +172,7 @@ export default {
   name: "Home",
   data() {
     return {
-      searchInfo:'',
+      searchInfo: "",
       noteList: [],
       selectedNote: {},
       postion: {},
@@ -263,12 +268,11 @@ export default {
       item.isShowNotes = !item.isShowNotes;
     },
     // 搜索
-    searchDown(){
+    searchDown() {
       const _self = this;
-      this.noteList =  this.$store.state.noteList.filter((item)=>{
+      this.noteList = this.$store.state.noteList.filter(item => {
         return item.title.match(this.searchInfo);
       });
-
     }
   },
   created() {

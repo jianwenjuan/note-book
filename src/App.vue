@@ -153,7 +153,8 @@ export default {
       } else if (item.id === "lable") {
         this.$store.commit("lable");
       } else if (item.id === "note") {
-        this.$store.commit("hideInfo");
+        this.$store.commit('navToNote');
+        this. hideInfo();
       } else if (item.id === "add") {
         this.$router.push("/create");
         this.$store.commit("add");

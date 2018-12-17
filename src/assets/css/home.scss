@@ -105,6 +105,17 @@
   
         }
       }
+      .book-module-title{
+        height: 150px;
+        background: #393d41;
+        padding: 32px;
+
+        .book-name{
+          text-align: center;
+          color: #fff;
+        }
+
+      }
       .node-list-container{
         height: calc(100% - 130px);
         overflow-y: scroll;
