@@ -12,7 +12,7 @@
         </div>
         <!-- 书本选择列表 -->
         <div class="book-wrap" v-show="isShowBookList">
-          <div class="search-book">
+          <div id="searchWrap" class="search-book">
             <Input search placeholder="搜索笔记"/>
           </div>
           <div class="create-book">
@@ -99,14 +99,14 @@ export default {
     // 新增数据
     create() {
       const newNoteData = {
-        id: `${Math.random()*1000}`,
+        id: `${Math.random() * 1000}`,
         isAlarm: false,
         isStore: false,
         title: this.note.title,
         createTime: "20 分钟前",
         primary: this.note.primary,
         selected: false,
-        book: common.deepCopy(this.currentBook,{})
+        book: common.deepCopy(this.currentBook, {})
       };
       this.$store.commit("creatNote", newNoteData);
       this.$router.push("/home");
@@ -137,6 +137,7 @@ export default {
     const self = this;
     this.$nextTick(() => {
       const selectBookBtn = document.getElementById("selectBookBtn");
+      const searchWrap = document.getElementById("searchWrap");
       let body = document.querySelector("body");
       body.addEventListener(
         "click",
@@ -145,7 +146,8 @@ export default {
             e.target.className.indexOf("book-display") > -1 ||
             (selectBookBtn &&
               selectBookBtn.contains(event.target) &&
-              e.target.className.indexOf("icon-zhuanchu") < 0)
+              e.target.className.indexOf("icon-zhuanchu") < 0) ||
+            searchWrap.contains(event.target)
           ) {
             self.isShowBookList = true;
           } else {
