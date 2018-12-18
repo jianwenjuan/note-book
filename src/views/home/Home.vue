@@ -118,6 +118,7 @@
             </div>
           </div>
 
+
           <!-- 操作提示 -->
           <div class="note-handler-tip" v-show="!$store.state.noteList.length">
             <img src="../../assets/note.png">
@@ -167,7 +168,7 @@
 import editorComponent from "@/component/noteEditor.vue";
 
 import setAlarm from "../view-component/setAlarm.vue";
-import { mapState } from "vuex";
+import { mapState,mapGetters } from "vuex";
 export default {
   name: "Home",
   data() {
@@ -276,7 +277,12 @@ export default {
     }
   },
   created() {
-    this.noteList = this.$store.state.noteList;
+    if(this.$store.state.selectedBook){
+      this.noteList = this.$store.state.selectedBook.noteList;
+    } else {
+      this.noteList = this.$store.state.noteList;
+    }
+    
     // 默认展示第一条数据
     this.noteList.forEach(item => {
       if (item.selected) {
@@ -302,6 +308,24 @@ export default {
       },
       false
     );
+  },
+  computed:{
+    ...mapGetters([
+      'getSelectedBook'
+    ])
+  },
+  watch: {
+    getSelectedBook:function(data){
+      if(data && data.noteList) {
+        this.noteList = data.noteList;
+        this.selectedNote = this.noteList[0];
+
+      } else {
+        this.noteList = this.$store.state.noteList;
+      }
+      
+    }
+
   },
   components: { editorComponent, setAlarm }
 };

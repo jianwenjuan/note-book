@@ -16,16 +16,17 @@ const getters = {
                         id: item.book.id,
                         name: item.book.name,
                         note: item
-
                     }
                 ];
-
             }
-
         });
 
         return bookObj;
 
+
+    },
+    getSelectedBook:(state)=>{
+        return state.selectedBook;
 
     }
 

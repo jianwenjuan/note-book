@@ -21,9 +21,7 @@ router.post('/user/register', (req, res) => {
 router.post('/user/login', (req, res) => {
 
     const params = req.body;
-    console.log(params);
 
-    console.log(common.md5(params.password));
     if (params.username === config.username && common.md5(params.password) === config.password) {
         res.send({
             code: 0,

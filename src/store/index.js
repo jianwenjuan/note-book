@@ -33,7 +33,12 @@ const store = new Vuex.Store({
     alarmList: [], //已设置提醒的数据
 
     //书本列表
-    bookList: [],
+    isShowAddBook: false,
+    bookList: [ {
+      id: "8",
+      name: "InBook",
+      noteList:[]
+    }],
     selectedBook:null,
 
     // 笔记列表

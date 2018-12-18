@@ -192,31 +192,12 @@ export default {
         data.selected = true;
         state.noteList.push(data);
 
-        // 映射书本数据
-        const mapBooksData = this.getters.mapBooksData;
-
-        let booksObj = [];
-        for (let key in mapBooksData) {
-            if (Object.prototype.hasOwnProperty.call(mapBooksData, key)) {
-                const obj = {
-                    id: '',
-                    name: '',
-                    noteList: []
-                };
-                mapBooksData[key].forEach((item) => {
-                    obj.id = item.id;
-                    obj.name = item.name;
-                    obj.noteList.push(item.note);
-
-                });
-
-                booksObj.push(obj);
+        state.bookList.forEach((item)=>{
+            if(item.id === data.book.id){
+                item.noteList.push(data);
             }
+        })
 
-        }
-
-        // 更新书本数据
-        state.bookList = booksObj;
     },
 
     // 删除日记
@@ -265,6 +246,20 @@ export default {
                 })
             }
         })
+
+    },
+
+    createBook(state) {
+        state.isShowAddBook = true;
+    },
+
+    cancelAddBook(state){
+        state.isShowAddBook = false;
+    },
+
+    addBook(state,data){
+        state.isShowAddBook = false;
+        state.bookList.push(data);
 
     },
 

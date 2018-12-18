@@ -79,6 +79,19 @@
           </div>
         </transition>
       </div>
+
+      <!-- 新增书本 -->
+      <Modal
+        :value="$store.state.isShowAddBook"
+        :height="200"
+        :cancelCallback="cancelAddBook"
+        :okCallback="addBook"
+      >
+        <div slot="header">新建笔记</div>
+        <div class="modal-body">
+          <input class="book-inpt" type="text" placeholder="请输入书名" v-model="bookName">
+        </div>
+      </Modal>
     </div>
   </div>
 </template>
@@ -153,8 +166,8 @@ export default {
       } else if (item.id === "lable") {
         this.$store.commit("lable");
       } else if (item.id === "note") {
-        this.$store.commit('navToNote');
-        this. hideInfo();
+        this.$store.commit("navToNote");
+        this.hideInfo();
       } else if (item.id === "add") {
         this.$router.push("/create");
         this.$store.commit("add");
@@ -177,6 +190,17 @@ export default {
           _self.$router.push("/login");
         }
       });
+    },
+    cancelAddBook() {
+      this.$store.commit("cancelAddBook");
+    },
+    addBook() {
+      const bookData = {
+        id:`${Math.random() * 100}`,
+        name:this.bookName,
+        noteList:[]
+      }
+      this.$store.commit("addBook",bookData);
     }
   },
   components: { collection, book, lableContent, shareComponent },
@@ -242,5 +266,18 @@ export default {
     font-weight: bold;
     color: $color-primary;
   }
+}
+
+.book-inpt {
+  display: inline-block;
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  font-size: 16px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: 0;
 }
 </style>

@@ -15,7 +15,7 @@
           <div id="searchWrap" class="search-book">
             <Input search placeholder="搜索笔记"/>
           </div>
-          <div class="create-book">
+          <div class="create-book" @click="createBook">
             <span class="iconfont icon-xinjianpushu"></span>
             <span class="text">创建笔记本</span>
           </div>
@@ -58,10 +58,7 @@ export default {
   data() {
     return {
       isShowBookList: false,
-      currentBook: {
-        id: "8",
-        name: "InBook"
-      },
+      currentBook: null,
       note: common.deepCopy(this.noteDetail, {})
     };
   },
@@ -116,6 +113,9 @@ export default {
     choseBook(item) {
       this.currentBook = item;
       this.note.book = this.currentBook;
+    },
+    createBook(){
+      this.$store.commit('createBook');
     }
   },
   watch: {
@@ -131,6 +131,8 @@ export default {
   created() {
     if (this.noteDetail.book) {
       this.currentBook = this.noteDetail.book;
+    } else {
+      this.currentBook = this.$store.state.bookList[0];
     }
 
     //  点击其他地方，关闭弹窗面板

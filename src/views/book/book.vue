@@ -5,7 +5,7 @@
       <div class="book-search">
         <Input search placeholder="查找笔记本"/>
       </div>
-      <div class="add" title="新增笔记本">
+      <div class="add" title="新增笔记本" @click="createBook">
         <span class="iconfont icon-xinjianpushu"></span>
       </div>
     </div>
@@ -54,6 +54,9 @@ export default {
     },
     selectBook(book){
       this.$store.commit('selectBook',book);
+    },
+    createBook(){
+      this.$store.commit('createBook');
     }
   }
 };
