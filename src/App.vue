@@ -196,11 +196,16 @@ export default {
     },
     addBook() {
       const bookData = {
-        id:`${Math.random() * 100}`,
-        name:this.bookName,
-        noteList:[]
-      }
-      this.$store.commit("addBook",bookData);
+        id: `${Math.random() * 100}`,
+        name: this.bookName,
+        noteList: []
+      };
+
+      this.$store.dispatch("addBook", bookData).then(res => {
+        if (res.code === 0) {
+          this.$store.commit("addBook", bookData);
+        }
+      });
     }
   },
   components: { collection, book, lableContent, shareComponent },

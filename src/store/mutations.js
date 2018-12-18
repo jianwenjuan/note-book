@@ -7,8 +7,6 @@ export default {
         state.isLogin = false;
     },
 
-
-
     //点击新建按钮
     add(state) {
         state.collectionShow = false;

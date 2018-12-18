@@ -29,7 +29,7 @@ router.post('/user/login', (req, res) => {
         });
     } else {
         res.send({
-            code: 1,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+            code: 1,
             msg: '用户名密码错误'
         });
     }
@@ -37,6 +37,20 @@ router.post('/user/login', (req, res) => {
     res.end();
 
 });
+
+router.post('/book/addBook', (req, res) => {
+
+    res.send({
+        code: 0,
+        msg: '添加成功'
+
+    });
+
+    res.end();
+
+
+
+})
 
 
 
